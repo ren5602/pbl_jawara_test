@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
       // Implementasi login di sini
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Login berhasil!'),
+          content: Text('Login Berhasil!'),
           backgroundColor: Color(0xFF808080),
         ),
       );
@@ -37,6 +37,24 @@ class _LoginPageState extends State<LoginPage> {
       });
     }
   }
+  // press button login buat test aja
+  // void _login() {
+  //   final email = emailController.text;
+  //   final password = passwordController.text;
+
+  //   if (email == 'user@example.com' && password == '123456') {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       const SnackBar(content: Text('Login Berhasil')),
+  //     );
+
+  //     // Navigasi ke home
+  //     context.go('/home');
+  //   } else {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       const SnackBar(content: Text('Login Gagal')),
+  //     );
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -118,6 +136,7 @@ class _LoginPageState extends State<LoginPage> {
                         children: [
                           // Email Field
                           CustomTextField(
+                            key: const Key('emailField'),
                             label: 'Email',
                             placeholder: 'Masukkan Email',
                             controller: _emailController,
@@ -136,6 +155,7 @@ class _LoginPageState extends State<LoginPage> {
 
                           // Password Field
                           CustomTextField(
+                            key: const Key('passwordField'),
                             label: 'Password',
                             placeholder: 'Masukkan Password',
                             controller: _passwordController,
@@ -167,6 +187,7 @@ class _LoginPageState extends State<LoginPage> {
 
                           // Login Button
                           ElevatedButton(
+                            key: const Key('loginButton'),
                             onPressed: _handleLogin,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFF00BFA5),

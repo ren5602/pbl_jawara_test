@@ -27,14 +27,17 @@ class _RegisterPageState extends State<RegisterPage> {
   void _handleRegister() {
     if (_formKey.currentState!.validate()) {
       // Implementasi register di sini
+      FocusScope.of(context).unfocus();
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Registrasi berhasil!'),
           backgroundColor: Color(0xFF808080),
+          duration: Duration(milliseconds: 800),
         ),
       );
       Future.delayed(const Duration(milliseconds: 800), () {
-        context.go('/login');
+        // ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        Navigator.pop(context);
       });
     }
   }
@@ -119,6 +122,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         children: [
                           // Nama Lengkap Field
                           CustomTextField(
+                            key: const Key('nameField'),
                             label: 'Nama Lengkap',
                             placeholder: 'Masukkan Lengkap',
                             controller: _namaController,
@@ -137,6 +141,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
                           // Email Field
                           CustomTextField(
+                            key: const Key('emailField'),
                             label: 'Email',
                             placeholder: 'Masukkan Email',
                             controller: _emailController,
@@ -155,6 +160,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
                           // Password Field
                           CustomTextField(
+                            key: const Key('passwordField'),
                             label: 'Password',
                             placeholder: 'Masukkan Password',
                             controller: _passwordController,
@@ -186,6 +192,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
                           // Register Button
                           ElevatedButton(
+                            key: const Key('registerButton'),
                             onPressed: _handleRegister,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFF00BFA5),
