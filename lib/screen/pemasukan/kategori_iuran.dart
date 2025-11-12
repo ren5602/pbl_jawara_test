@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:data_table_2/data_table_2.dart';
 import '../../widgets/pemasukan/add_iuran_dialog.dart';
 import '../../widgets/pemasukan/iuran_table.dart';
+import '../../theme/AppTheme.dart';
 
 class KategoriIuran extends StatefulWidget {
   const KategoriIuran({super.key});
@@ -105,44 +106,96 @@ class _KategoriIuranState extends State<KategoriIuran> {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: colorScheme.primary,
-        elevation: 0,
-        title: Text(
-          "Kategori Iuran",
-          style: theme.textTheme.titleLarge?.copyWith(color: Colors.white),
-        ),
+        title: const Text("Kategori Iuran"),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => context.go('/menu-pemasukan'),
         ),
       ),
-      body: Container(
-        margin: const EdgeInsets.all(16),
-        height: double.infinity,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.95),
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: const [
-            BoxShadow(
-              color: Colors.black12,
-              blurRadius: 8,
-              offset: Offset(0, 4),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Header daftar + tombol tambah
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Daftar Kategori Iuran",
+                  style: theme.textTheme.titleLarge,
+                ),
+                ElevatedButton(
+                  onPressed: _showAddIuranDialog,
+                  child: const Text("Tambah"),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+
+            // Daftar iuran
+            Expanded(
+              child: ListView.builder(
+                itemCount: _kategoriIuran.length,
+                itemBuilder: (context, index) {
+                  final item = _kategoriIuran[index];
+                  return Container(
+                    margin: const EdgeInsets.only(bottom: 12),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    decoration: BoxDecoration(
+                      color: AppTheme.warnaPrimary, // pakai warna dari AppTheme
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          blurRadius: 4,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        // Nama dan jenis
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              item['nama'] ?? '-',
+                              style: theme.textTheme.titleLarge?.copyWith(
+                                color: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              item['jenis'] ?? '-',
+                              style: theme.textTheme.bodyMedium?.copyWith(
+                                color: Colors.white70,
+                              ),
+                            ),
+                          ],
+                        ),
+                        // Tombol detail
+                        TextButton(
+                          onPressed: () =>
+                              context.push('/detail-kategori', extra: item),
+                          style: TextButton.styleFrom(
+                            foregroundColor: Colors.white,
+                          ),
+                          child: const Text(
+                            "Detail",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
             ),
           ],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: IuranTable(
-            kategoriIuran: _kategoriIuran,
-            onAddPressed: _showAddIuranDialog,
-            onDeletePressed: _deleteIuran,
-            onViewPressed: (item) {
-              context.push('/detail-kategori', extra: item);
-            },
-          ),
         ),
       ),
     );
