@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 
 class DetailKategoriIuran extends StatelessWidget {
-  // Data Pemasukan diterima melalui constructor
   final Map<String, String> kategoriData;
 
   const DetailKategoriIuran({super.key, required this.kategoriData});
 
-  // Widget helper untuk membuat baris detail (Label: Value)
   Widget _buildDetailRow(
     BuildContext context,
     String label,

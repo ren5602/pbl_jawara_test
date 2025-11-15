@@ -80,6 +80,14 @@ final appRouter = GoRouter(
       name: 'tambah-pemasukan',
       builder: (context, state) => const TambahPemasukan(),
     ),
+    GoRoute(
+      path: '/detail-tagihan',
+      name: 'detail-tagihan',
+      builder: (context, state) {
+        final data = state.extra as Map<String, String>;
+        return DetailTagihan(kategoriData: data);
+      },
+    ),
   ],
 );
 

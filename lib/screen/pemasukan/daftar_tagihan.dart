@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'tagihan_table.dart';
+import '../../widgets/pemasukan/tagihan_table.dart';
+import '../../widgets/pemasukan/add_tagihan_dialog.dart';
+import '../../theme/AppTheme.dart';
 
 class DaftarTagihan extends StatefulWidget {
   const DaftarTagihan({super.key});
@@ -10,7 +12,6 @@ class DaftarTagihan extends StatefulWidget {
 }
 
 class _DaftarTagihanState extends State<DaftarTagihan> {
-  // Data dummy tanpa tanggal
   final List<Map<String, String>> _daftarTagihan = [
     {
       "no": "1",
@@ -44,70 +45,68 @@ class _DaftarTagihanState extends State<DaftarTagihan> {
     },
   ];
 
-  // void _showAddIuranDialog() {
-  //   showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return AddIuranDialog(
-  //         onIuranAdded: (newIuran) {
-  //           _addNewIuran(newIuran);
-  //         },
-  //       );
-  //     },
-  //   );
-  // }
+  void _showAddTagihanDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AddTagihanDialog(
+          onTagihanAdded: (newTagihan) {
+            _addNewTagihan(newTagihan);
+          },
+        );
+      },
+    );
+  }
 
-  // void _addNewIuran(Map<String, String> newIuran) {
-  //   setState(() {
-  //     _daftarTagihan.add({
-  //       "no": (_daftarTagihan.length + 1).toString(),
-  //       "nama": newIuran['nama']!,
-  //       "jenis": newIuran['jenis']!,
-  //       "nominal": newIuran['nominal'] ?? "Rp 0",
-  //     });
-  //   });
+  void _addNewTagihan(Map<String, String> newTagihan) {
+    setState(() {
+      _daftarTagihan.add({
+        "no": (_daftarTagihan.length + 1).toString(),
+        ...newTagihan,
+      });
+    });
 
-  //   ScaffoldMessenger.of(context).showSnackBar(
-  //     SnackBar(
-  //       content: Text("Iuran ${newIuran['nama']} berhasil ditambahkan"),
-  //       backgroundColor: Colors.green,
-  //     ),
-  //   );
-  // }
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("Tagihan ${newTagihan['namaKeluarga']} berhasil ditambahkan"),
+        backgroundColor: Colors.green,
+      ),
+    );
+  }
 
-  // void _deleteIuran(Map<String, String> item) {
-  //   showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         title: const Text("Hapus Iuran"),
-  //         content: Text("Yakin ingin menghapus iuran ${item['nama']}?"),
-  //         actions: [
-  //           TextButton(
-  //             onPressed: () => Navigator.of(context).pop(),
-  //             child: const Text("Batal"),
-  //           ),
-  //           ElevatedButton(
-  //             onPressed: () {
-  //               setState(() {
-  //                 _daftarTagihan.remove(item);
-  //               });
-  //               Navigator.of(context).pop();
-  //               ScaffoldMessenger.of(context).showSnackBar(
-  //                 SnackBar(
-  //                   content: Text("Iuran ${item['nama']} berhasil dihapus"),
-  //                   backgroundColor: Colors.green,
-  //                 ),
-  //               );
-  //             },
-  //             style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-  //             child: const Text("Hapus", style: TextStyle(color: Colors.white)),
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
+  void _deleteTagihan(Map<String, String> item) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Hapus Tagihan"),
+          content: Text("Yakin ingin menghapus tagihan ${item['namaKeluarga']}?"),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text("Batal"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  _daftarTagihan.remove(item);
+                });
+                Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text("Tagihan ${item['namaKeluarga']} berhasil dihapus"),
+                    backgroundColor: Colors.green,
+                  ),
+                );
+              },
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+              child: const Text("Hapus", style: TextStyle(color: Colors.white)),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,44 +114,93 @@ class _DaftarTagihanState extends State<DaftarTagihan> {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: colorScheme.primary,
-        elevation: 0,
-        title: Text(
-          "Tagihan Iuran",
-          style: theme.textTheme.titleLarge?.copyWith(color: Colors.white),
-        ),
+        title: const Text("Tagihan Iuran"),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => context.go('/menu-pemasukan'),
         ),
       ),
-      body: Container(
-        margin: const EdgeInsets.all(16),
-        height: double.infinity,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.95),
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: const [
-            BoxShadow(
-              color: Colors.black12,
-              blurRadius: 8,
-              offset: Offset(0, 4),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Daftar Tagihan Iuran",
+                  style: theme.textTheme.titleLarge,
+                ),
+                ElevatedButton(
+                  onPressed: _showAddTagihanDialog,
+                  child: const Text("Tambah"),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+
+            Expanded(
+              child: ListView.builder(
+                itemCount: _daftarTagihan.length,
+                itemBuilder: (context, index) {
+                  final item = _daftarTagihan[index];
+                  return Container(
+                    margin: const EdgeInsets.only(bottom: 12),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    decoration: BoxDecoration(
+                      color: AppTheme.warnaPrimary, // pakai warna dari AppTheme
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          blurRadius: 4,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        // Nama dan jenis
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              item['namaKeluarga'] ?? '-',
+                              style: theme.textTheme.titleLarge?.copyWith(
+                                color: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              item['jenis'] ?? '-',
+                              style: theme.textTheme.bodyMedium?.copyWith(
+                                color: Colors.white70,
+                              ),
+                            ),
+                          ],
+                        ),
+                        TextButton(
+                          onPressed: () =>
+                              context.push('/detail-tagihan', extra: item),
+                          style: TextButton.styleFrom(
+                            foregroundColor: Colors.white,
+                          ),
+                          child: const Text(
+                            "Detail",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
             ),
           ],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: TagihanTable(
-            daftarTagihan: _daftarTagihan,
-            // onAddPressed: _showAddIuranDialog,
-            // onDeletePressed: _deleteIuran,
-            onViewPressed: (item) {
-              context.push('/detail-tagihan', extra: item);
-            },
-          ),
         ),
       ),
     );

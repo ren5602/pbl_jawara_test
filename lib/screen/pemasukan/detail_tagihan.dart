@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 
 class DetailTagihan extends StatelessWidget {
-  // Data Pemasukan diterima melalui constructor
   final Map<String, String> kategoriData;
 
   const DetailTagihan({super.key, required this.kategoriData});
 
-  // Widget helper untuk membuat baris detail (Label: Value)
   Widget _buildDetailRow(
     BuildContext context,
     String label,
@@ -27,9 +25,7 @@ class DetailTagihan extends StatelessWidget {
             value,
             style: theme.textTheme.bodyLarge?.copyWith(
               fontWeight: FontWeight.bold,
-              color: isNominal
-                  ? Colors.green[700]
-                  : theme.colorScheme.onSurface,
+              color: isNominal ? Colors.green[700] : theme.colorScheme.onSurface,
             ),
           ),
         ],
@@ -53,92 +49,92 @@ class DetailTagihan extends StatelessWidget {
         ),
         iconTheme: IconThemeData(color: theme.colorScheme.onPrimary),
       ),
-      body: Container(
-        height: double.infinity,
-        decoration: const BoxDecoration(color: Colors.white),
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Card(
-                elevation: 2,
-                color: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Column(
-                    children: [
-                      _buildDetailRow(
-                        context,
-                        "Nama Iuran",
-                        kategoriData['namaKeluarga'] ?? '-',
-                      ),
-                      const Divider(height: 1),
-                      _buildDetailRow(
-                        context,
-                        "Status Keluarga",
-                        kategoriData['statusKeluarga'] ?? '-',
-                      ),
-                      const Divider(height: 1),
-                      _buildDetailRow(
-                        context,
-                        "Jenis Iuran",
-                        kategoriData['jenis'] ?? '-',
-                      ),
-                      const Divider(height: 1),
-                      _buildDetailRow(
-                        context,
-                        "Kode Tagihan",
-                        kategoriData['kodeTagihan'] ?? '-',
-                      ),
-                      const Divider(height: 1),
-                      _buildDetailRow(
-                        context,
-                        "Nominal",
-                        kategoriData['nominal'] ?? 'Rp 0',
-                        isNominal: true,
-                      ),
-                      const Divider(height: 1),
-                      _buildDetailRow(
-                        context,
-                        "Periode",
-                        kategoriData['periode'] ?? '-',
-                      ),
-                      const Divider(height: 1),
-                      _buildDetailRow(
-                        context,
-                        "status",
-                        kategoriData['status'] ?? '-',
-                      ),
-                    ],
-                  ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Card(
+              elevation: 2,
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Column(
+                  children: [
+                    _buildDetailRow(
+                      context,
+                      "Nama Keluarga",
+                      kategoriData['namaKeluarga'] ?? '-',
+                    ),
+                    const Divider(height: 1),
+                    _buildDetailRow(
+                      context,
+                      "Status Keluarga",
+                      kategoriData['statusKeluarga'] ?? '-',
+                    ),
+                    const Divider(height: 1),
+                    _buildDetailRow(
+                      context,
+                      "Jenis Iuran",
+                      kategoriData['jenis'] ?? '-',
+                    ),
+                    const Divider(height: 1),
+                    _buildDetailRow(
+                      context,
+                      "Kode Tagihan",
+                      kategoriData['kodeTagihan'] ?? '-',
+                    ),
+                    const Divider(height: 1),
+                    _buildDetailRow(
+                      context,
+                      "Nominal",
+                      kategoriData['nominal'] ?? 'Rp 0',
+                      isNominal: true,
+                    ),
+                    const Divider(height: 1),
+                    _buildDetailRow(
+                      context,
+                      "Periode",
+                      kategoriData['periode'] ?? '-',
+                    ),
+                    const Divider(height: 1),
+                    _buildDetailRow(
+                      context,
+                      "Status Tagihan",
+                      kategoriData['status'] ?? '-',
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 24),
-              Text('Bukti Tagihan', style: theme.textTheme.titleMedium),
-              const SizedBox(height: 8),
-              // Placeholder untuk gambar bukti
-              Container(
-                height: 200,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.grey.shade300),
-                  color: Colors.grey.shade100,
-                ),
-                child: const Center(
-                  child: Icon(
-                    Icons.image_not_supported_outlined,
-                    size: 48,
-                    color: Colors.grey,
-                  ),
+            ),
+
+            const SizedBox(height: 24),
+
+            Text('Bukti Tagihan', style: theme.textTheme.titleMedium),
+            const SizedBox(height: 8),
+
+            // Placeholder bukti
+            Container(
+              height: 200,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Colors.grey.shade300),
+                color: Colors.grey.shade100,
+              ),
+              child: const Center(
+                child: Icon(
+                  Icons.image_not_supported_outlined,
+                  size: 48,
+                  color: Colors.grey,
                 ),
               ),
-              const SizedBox(height: 40),
-            ],
-          ),
+            ),
+
+            const SizedBox(height: 40),
+          ],
         ),
       ),
     );

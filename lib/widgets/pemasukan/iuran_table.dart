@@ -72,16 +72,11 @@ class IuranTable extends StatelessWidget {
         columns: const [
           DataColumn2(label: Text('No'), size: ColumnSize.S),
           DataColumn2(label: Text('Nama'), size: ColumnSize.L),
-          // DataColumn2(label: Text('Jenis')),
           DataColumn2(
             label: Text('Nominal'),
             numeric: true,
             size: ColumnSize.L,
-          ),
-          // DataColumn2(
-          //   label: Center(child: Text('Aksi')),
-          //   size: ColumnSize.L,
-          // ),
+          )
         ],
         rows: kategoriIuran.map((item) {
           return DataRow2(
@@ -89,7 +84,6 @@ class IuranTable extends StatelessWidget {
             cells: [
               DataCell(Text(item['no']!)),
               DataCell(Text(item['nama']!)),
-              // DataCell(Text(item['jenis']!)),
               DataCell(
                 Text(
                   item['nominal']!,
@@ -99,7 +93,6 @@ class IuranTable extends StatelessWidget {
                   ),
                 ),
               ),
-              // DataCell(_buildActionButtons(item, theme), onTap: null),
             ],
           );
         }).toList(),

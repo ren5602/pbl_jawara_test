@@ -13,7 +13,6 @@ class KategoriIuran extends StatefulWidget {
 }
 
 class _KategoriIuranState extends State<KategoriIuran> {
-  // Data dummy tanpa tanggal
   final List<Map<String, String>> _kategoriIuran = [
     {
       "no": "1",
