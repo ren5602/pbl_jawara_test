@@ -71,7 +71,6 @@ class _MenuPemasukanItemState extends State<MenuPemasukanItem> {
 
     return InkWell(
       onTap: () => context.go(widget.route),
-      // Gunakan onHover untuk mengubah state
       onHover: (hovering) {
         setState(() {
           _isHovering = hovering;
@@ -79,14 +78,14 @@ class _MenuPemasukanItemState extends State<MenuPemasukanItem> {
       },
       borderRadius: BorderRadius.circular(
         16,
-      ), // Samakan radius dengan container
+      ), 
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 50), // Animasi halus
+        duration: const Duration(milliseconds: 50),
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
         decoration: BoxDecoration(
           color: _isHovering
               ? colorScheme
-                    .surfaceVariant // Beri sedikit warna latar saat hover
+                    .surfaceVariant 
               : Colors.transparent,
           borderRadius: BorderRadius.circular(16),
         ),
@@ -106,7 +105,7 @@ class _MenuPemasukanItemState extends State<MenuPemasukanItem> {
             const SizedBox(height: 8),
             Text(
               widget.label,
-              textAlign: TextAlign.center, // Agar rapi jika label 2 baris
+              textAlign: TextAlign.center, 
               style: textTheme.bodyMedium!.copyWith(
                 color: colorScheme.onSurface,
                 fontWeight: FontWeight.w600,
@@ -148,11 +147,6 @@ class MenuPemasukanHeader extends StatelessWidget {
         'icon': FontAwesomeIcons.dollarSign,
         'route': '/daftar-pemasukan',
       },
-      {
-        'label': 'Tambah Pemasukan',
-        'icon': FontAwesomeIcons.arrowTrendUp,
-        'route': '/tambah-pemasukan',
-      },
     ];
 
     return Container(
@@ -168,12 +162,9 @@ class MenuPemasukanHeader extends StatelessWidget {
           Text('Pilih Menu Pemasukan', style: textTheme.titleLarge),
           const SizedBox(height: 12),
           Row(
-            // Tambahkan ini agar item tetap rapi di atas
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: items.map((e) {
-              // Ganti blok InkWell lama dengan widget baru ini
-              // Bungkus dengan Expanded agar area tap/hover merata
               return Expanded(
                 child: MenuPemasukanItem(
                   icon: e['icon'] as IconData,

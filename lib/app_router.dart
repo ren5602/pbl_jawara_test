@@ -11,7 +11,7 @@ import 'screen/pemasukan/tagih_iuran_page.dart';
 import 'screen/pemasukan/daftar_tagihan.dart';
 import 'screen/pemasukan/detail_tagihan.dart';
 import 'screen/pemasukan/daftar_pemasukan.dart';
-import 'screen/pemasukan/tambah_pemasukan.dart';
+import 'screen/pemasukan/detail_pemasukan.dart';
 
 final appRouter = GoRouter(
   initialLocation: '/login',
@@ -76,9 +76,12 @@ final appRouter = GoRouter(
       builder: (context, state) => const DaftarPemasukan(),
     ),
     GoRoute(
-      path: '/tambah-pemasukan',
-      name: 'tambah-pemasukan',
-      builder: (context, state) => const TambahPemasukan(),
+      path: '/detail-pemasukan',
+      name: 'detail-pemasukan',
+      builder: (context, state) {
+        final data = state.extra as Map<String, String>;
+        return DetailPemasukan(pemasukanData: data);
+      },
     ),
     GoRoute(
       path: '/detail-tagihan',
