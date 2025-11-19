@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pbl_jawara_test/models/user.dart';
 import 'package:pbl_jawara_test/services/user_management_service.dart';
+import 'package:pbl_jawara_test/widgets/bottom_navbar_widget.dart';
 import 'package:pbl_jawara_test/widgets/user_management/user_list_item.dart';
 
 class UserManagementPage extends StatefulWidget {
@@ -142,6 +143,7 @@ class _UserManagementPageState extends State<UserManagementPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      bottomNavigationBar: const BottomNavbarWidget(currentIndex: 3),
       appBar: AppBar(
         backgroundColor: const Color(0xFF00BFA5),
         elevation: 0,
