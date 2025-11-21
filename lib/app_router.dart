@@ -18,6 +18,15 @@ import 'package:pbl_jawara_test/pages/warga_rumah/keluarga/keluarga_page.dart';
 import 'package:pbl_jawara_test/pages/warga_rumah/keluarga/keluarga_detail_page.dart';
 import 'package:pbl_jawara_test/pages/warga_rumah/keluarga/keluarga_form_page.dart';
 
+import 'screen/pemasukan/menu_pemasukan.dart';
+import 'screen/pemasukan/kategori_iuran.dart';
+import 'screen/pemasukan/detail_kategori_iuran.dart';
+import 'screen/pemasukan/tagih_iuran_page.dart';
+import 'screen/pemasukan/daftar_tagihan.dart';
+import 'screen/pemasukan/detail_tagihan.dart';
+import 'screen/pemasukan/daftar_pemasukan.dart';
+import 'screen/pemasukan/detail_pemasukan.dart';
+
 final appRouter = GoRouter(
   initialLocation: '/login',
   routes: <GoRoute>[
@@ -74,6 +83,57 @@ final appRouter = GoRouter(
         body: Center(),
       ),
     ),
+    // ====== Menu Pemasukan ======
+    GoRoute(
+      path: '/menu-pemasukan',
+      name: 'menu-pemasukan',
+      builder: (context, state) => const MenuPemasukan(),
+    ),
+    GoRoute(
+      path: '/kategori-iuran',
+      name: 'kategori-iuran',
+      builder: (context, state) => const KategoriIuran(),
+    ),
+    GoRoute(
+      path: '/detail-kategori',
+      name: 'detail-kategori',
+      builder: (context, state) {
+        final data = state.extra as Map<String, String>;
+        return DetailKategoriIuran(kategoriData: data);
+      },
+    ),
+    GoRoute(
+      path: '/tagih-iuran',
+      name: 'tagih-iuran',
+      builder: (context, state) => const TagihIuranPage(),
+    ),
+    GoRoute(
+      path: '/daftar-tagihan',
+      name: 'daftar-tagihan',
+      builder: (context, state) => const DaftarTagihan(),
+    ),
+    GoRoute(
+      path: '/daftar-pemasukan',
+      name: 'daftar-pemasukan',
+      builder: (context, state) => const DaftarPemasukan(),
+    ),
+    GoRoute(
+      path: '/detail-pemasukan',
+      name: 'detail-pemasukan',
+      builder: (context, state) {
+        final data = state.extra as Map<String, String>;
+        return DetailPemasukan(pemasukanData: data);
+      },
+    ),
+    GoRoute(
+      path: '/detail-tagihan',
+      name: 'detail-tagihan',
+      builder: (context, state) {
+        final data = state.extra as Map<String, String>;
+        return DetailTagihan(kategoriData: data);
+      },
+    ),
+    
     // ====== Data Warga & Rumah Hub ======
     GoRoute(
       path: '/data-warga-rumah',
@@ -159,7 +219,9 @@ final appRouter = GoRouter(
       builder: (context, state) {
         final keluargaId = state.pathParameters['id']!;
         return KeluargaDetailPage(keluargaId: keluargaId);
-      },
+      }
     ),
   ],
 );
+
+
