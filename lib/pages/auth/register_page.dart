@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pbl_jawara_test/widgets/login/custom_text_field.dart';
+import 'package:pbl_jawara_test/services/auth_service.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -14,7 +15,9 @@ class _RegisterPageState extends State<RegisterPage> {
   final _namaController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _authService = AuthService();
   bool _obscurePassword = true;
+  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -24,18 +27,48 @@ class _RegisterPageState extends State<RegisterPage> {
     super.dispose();
   }
 
-  void _handleRegister() {
+  Future<void> _handleRegister() async {
     if (_formKey.currentState!.validate()) {
-      // Implementasi register di sini
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Registrasi berhasil!'),
-          backgroundColor: Color(0xFF808080),
-        ),
-      );
-      Future.delayed(const Duration(milliseconds: 800), () {
-        context.go('/login');
+      FocusScope.of(context).unfocus();
+
+      setState(() {
+        _isLoading = true;
       });
+
+      final result = await _authService.register(
+        _namaController.text,
+        _emailController.text,
+        _passwordController.text,
+      );
+
+      if (!mounted) return;
+
+      setState(() {
+        _isLoading = false;
+      });
+
+      if (result['success']) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Registrasi berhasil!'),
+            backgroundColor: Color(0xFF00BFA5),
+            duration: Duration(milliseconds: 800),
+          ),
+        );
+        Future.delayed(const Duration(milliseconds: 800), () {
+          if (mounted) {
+            Navigator.pop(context);
+          }
+        });
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(result['message'] ?? 'Registrasi gagal'),
+            backgroundColor: Colors.red,
+            duration: const Duration(seconds: 2),
+          ),
+        );
+      }
     }
   }
 
@@ -119,6 +152,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         children: [
                           // Nama Lengkap Field
                           CustomTextField(
+                            key: const Key('nameField'),
                             label: 'Nama Lengkap',
                             placeholder: 'Masukkan Lengkap',
                             controller: _namaController,
@@ -137,6 +171,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
                           // Email Field
                           CustomTextField(
+                            key: const Key('emailField'),
                             label: 'Email',
                             placeholder: 'Masukkan Email',
                             controller: _emailController,
@@ -155,6 +190,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
                           // Password Field
                           CustomTextField(
+                            key: const Key('passwordField'),
                             label: 'Password',
                             placeholder: 'Masukkan Password',
                             controller: _passwordController,
@@ -186,7 +222,8 @@ class _RegisterPageState extends State<RegisterPage> {
 
                           // Register Button
                           ElevatedButton(
-                            onPressed: _handleRegister,
+                            key: const Key('registerButton'),
+                            onPressed: _isLoading ? null : _handleRegister,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFF00BFA5),
                               foregroundColor: Colors.white,
@@ -196,13 +233,24 @@ class _RegisterPageState extends State<RegisterPage> {
                               ),
                               elevation: 0,
                             ),
-                            child: const Text(
-                              'Daftar',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                            child: _isLoading
+                                ? const SizedBox(
+                                    height: 20,
+                                    width: 20,
+                                    child: CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        Colors.white,
+                                      ),
+                                      strokeWidth: 2,
+                                    ),
+                                  )
+                                : const Text(
+                                    'Daftar',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                           ),
                           const SizedBox(height: 16),
 

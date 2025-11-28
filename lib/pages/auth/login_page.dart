@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pbl_jawara_test/pages/auth/register_page.dart';
 import 'package:pbl_jawara_test/widgets/login/custom_text_field.dart';
+import 'package:pbl_jawara_test/services/auth_service.dart';
+import 'package:pbl_jawara_test/utils/user_storage.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -14,7 +16,9 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _authService = AuthService();
   bool _obscurePassword = true;
+  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -23,20 +27,105 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
-  void _handleLogin() {
+  Future<void> _handleLogin() async {
     if (_formKey.currentState!.validate()) {
-      // Implementasi login di sini
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Login berhasil!'),
-          backgroundColor: Color(0xFF808080),
-        ),
-      );
-      Future.delayed(const Duration(milliseconds: 800), () {
-        context.go('/home');
+      setState(() {
+        _isLoading = true;
       });
+
+      try {
+        final result = await _authService.login(
+          _emailController.text.trim(),
+          _passwordController.text,
+        );
+
+        if (!mounted) return;
+
+        if (result['success']) {
+          // Simpan token dan user data
+          print('=== LOGIN RESULT ===');
+          print('Full result: $result');
+
+          // Response structure: {success: true, data: {success: true, data: {user: {...}, token: ...}}}
+          final outerData = result['data'] as Map<String, dynamic>? ?? {};
+          final innerData = outerData['data'] as Map<String, dynamic>? ?? {};
+
+          print('Outer data: $outerData');
+          print('Inner data: $innerData');
+
+          final token = innerData['token']?.toString() ?? '';
+          final user = innerData['user'] as Map<String, dynamic>? ?? {};
+
+          print('Token length: ${token.length}');
+          print(
+              'Token: ${token.length > 20 ? "${token.substring(0, 20)}..." : token}');
+          print('User data: $user');
+          print('User nama: ${user['nama']}');
+          print('==================');
+
+          await UserStorage.saveUserData(
+            token: token,
+            userData: user,
+          );
+
+          if (!mounted) return;
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Login Berhasil!'),
+              backgroundColor: Color(0xFF00BFA5),
+            ),
+          );
+
+          Future.delayed(const Duration(milliseconds: 800), () {
+            if (mounted) {
+              context.go('/home');
+            }
+          });
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(result['message'] ?? 'Login gagal'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      } catch (e) {
+        if (!mounted) return;
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Terjadi kesalahan: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      } finally {
+        if (mounted) {
+          setState(() {
+            _isLoading = false;
+          });
+        }
+      }
     }
   }
+  // press button login buat test aja
+  // void _login() {
+  //   final email = emailController.text;
+  //   final password = passwordController.text;
+
+  //   if (email == 'user@example.com' && password == '123456') {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       const SnackBar(content: Text('Login Berhasil')),
+  //     );
+
+  //     // Navigasi ke home
+  //     context.go('/home');
+  //   } else {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       const SnackBar(content: Text('Login Gagal')),
+  //     );
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -118,6 +207,7 @@ class _LoginPageState extends State<LoginPage> {
                         children: [
                           // Email Field
                           CustomTextField(
+                            key: const Key('emailField'),
                             label: 'Email',
                             placeholder: 'Masukkan Email',
                             controller: _emailController,
@@ -136,6 +226,7 @@ class _LoginPageState extends State<LoginPage> {
 
                           // Password Field
                           CustomTextField(
+                            key: const Key('passwordField'),
                             label: 'Password',
                             placeholder: 'Masukkan Password',
                             controller: _passwordController,
@@ -167,7 +258,8 @@ class _LoginPageState extends State<LoginPage> {
 
                           // Login Button
                           ElevatedButton(
-                            onPressed: _handleLogin,
+                            key: const Key('loginButton'),
+                            onPressed: _isLoading ? null : _handleLogin,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFF00BFA5),
                               foregroundColor: Colors.white,
@@ -177,13 +269,22 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               elevation: 0,
                             ),
-                            child: const Text(
-                              'Login',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                            child: _isLoading
+                                ? const SizedBox(
+                                    height: 20,
+                                    width: 20,
+                                    child: CircularProgressIndicator(
+                                      color: Colors.white,
+                                      strokeWidth: 2,
+                                    ),
+                                  )
+                                : const Text(
+                                    'Login',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                           ),
                           const SizedBox(height: 16),
 
