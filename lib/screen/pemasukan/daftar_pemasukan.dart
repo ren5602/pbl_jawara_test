@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:data_table_2/data_table_2.dart';
 import '../../widgets/pemasukan/add_pemasukan_dialog.dart';
-import '../../widgets/pemasukan/pemasukan_table.dart';
 import '../../theme/AppTheme.dart';
 
 class DaftarPemasukan extends StatefulWidget {

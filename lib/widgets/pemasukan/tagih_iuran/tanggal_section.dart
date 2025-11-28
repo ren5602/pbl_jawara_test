@@ -36,7 +36,7 @@ class TanggalSection extends StatelessWidget {
               Text(
                 selectedDate == null
                     ? "Pilih Tanggal"
-                    : "${_formatDate(selectedDate!)}",
+                    : _formatDate(selectedDate!),
                 style: TextStyle(
                   color: selectedDate == null ? Colors.grey[500] : Colors.black,
                 ),

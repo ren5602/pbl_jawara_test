@@ -313,8 +313,9 @@ class WargaService {
 
       if (namaWarga != null) requestBody['namaWarga'] = namaWarga;
       if (jenisKelamin != null) requestBody['jenisKelamin'] = jenisKelamin;
-      if (statusDomisili != null)
+      if (statusDomisili != null) {
         requestBody['statusDomisili'] = statusDomisili;
+      }
       if (statusHidup != null) requestBody['statusHidup'] = statusHidup;
       if (keluargaId != null) requestBody['keluargaId'] = keluargaId;
 

@@ -7,9 +7,9 @@ class WargaDetailPage extends StatefulWidget {
   final String wargaId;
 
   const WargaDetailPage({
-    Key? key,
+    super.key,
     required this.wargaId,
-  }) : super(key: key);
+  });
 
   @override
   State<WargaDetailPage> createState() => _WargaDetailPageState();

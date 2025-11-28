@@ -2,7 +2,7 @@ import 'package:pbl_jawara_test/models/user.dart';
 
 class UserManagementService {
   // Dummy data pengguna
-  static List<User> _users = [
+  static final List<User> _users = [
     User(
       id: '1',
       name: 'Nur Aziz',

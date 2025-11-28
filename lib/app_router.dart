@@ -17,6 +17,7 @@ import 'package:pbl_jawara_test/pages/warga_rumah/rumah/rumah_form_page.dart';
 import 'package:pbl_jawara_test/pages/warga_rumah/keluarga/keluarga_page.dart';
 import 'package:pbl_jawara_test/pages/warga_rumah/keluarga/keluarga_detail_page.dart';
 import 'package:pbl_jawara_test/pages/warga_rumah/keluarga/keluarga_form_page.dart';
+import 'package:pbl_jawara_test/pages/admin/verification_warga_page.dart';
 
 import 'screen/pemasukan/menu_pemasukan.dart';
 import 'screen/pemasukan/kategori_iuran.dart';
@@ -73,6 +74,18 @@ final appRouter = GoRouter(
         final userId = state.pathParameters['id']!;
         return UserDetailPage(userId: userId);
       },
+    ),
+    // ====== Warga Self Register ======
+    // GoRoute(
+    //   path: '/warga-self-register',
+    //   name: 'warga-self-register',
+    //   builder: (context, state) => const _WargaSelfRegisterWrapper(),
+    // ),
+    // ====== Verifikasi Data Warga (Admin Only) ======
+    GoRoute(
+      path: '/verification-warga',
+      name: 'verification-warga',
+      builder: (context, state) => const VerificationWargaPage(),
     ),
     // ====== Popup Menu ======
     GoRoute(

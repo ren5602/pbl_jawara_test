@@ -61,7 +61,7 @@ class TagihanTable extends StatelessWidget {
         horizontalMargin: 12,
         minWidth: 500,
         headingRowColor:
-            MaterialStateProperty.all(theme.colorScheme.primary.withOpacity(0.1)),
+            WidgetStateProperty.all(theme.colorScheme.primary.withOpacity(0.1)),
         headingTextStyle: TextStyle(
           fontWeight: FontWeight.bold,
           color: theme.colorScheme.secondary,

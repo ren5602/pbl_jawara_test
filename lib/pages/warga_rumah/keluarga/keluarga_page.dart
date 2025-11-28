@@ -6,7 +6,7 @@ import 'package:pbl_jawara_test/widgets/warga_rumah/keluarga_list_item.dart';
 import 'package:pbl_jawara_test/widgets/bottom_navbar_widget.dart';
 
 class KeluargaPage extends StatefulWidget {
-  const KeluargaPage({Key? key}) : super(key: key);
+  const KeluargaPage({super.key});
 
   @override
   State<KeluargaPage> createState() => _KeluargaPageState();

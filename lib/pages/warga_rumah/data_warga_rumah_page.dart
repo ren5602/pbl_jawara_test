@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:pbl_jawara_test/widgets/bottom_navbar_widget.dart';
 
 class DataWargaRumahPage extends StatelessWidget {
-  const DataWargaRumahPage({Key? key}) : super(key: key);
+  const DataWargaRumahPage({super.key});
 
   @override
   Widget build(BuildContext context) {

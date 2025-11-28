@@ -85,7 +85,7 @@ class _MenuPemasukanItemState extends State<MenuPemasukanItem> {
         decoration: BoxDecoration(
           color: _isHovering
               ? colorScheme
-                    .surfaceVariant 
+                    .surfaceContainerHighest 
               : Colors.transparent,
           borderRadius: BorderRadius.circular(16),
         ),

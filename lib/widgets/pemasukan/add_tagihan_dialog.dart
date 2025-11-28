@@ -114,7 +114,7 @@ class _AddTagihanDialogState extends State<AddTagihanDialog> {
 
   Widget _buildJenisDropdown() {
     return DropdownButtonFormField<String>(
-      value: _selectedJenis,
+      initialValue: _selectedJenis,
       decoration: InputDecoration(
         labelText: "Jenis Iuran",
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
