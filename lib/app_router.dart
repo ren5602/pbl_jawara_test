@@ -17,7 +17,9 @@ import 'package:pbl_jawara_test/pages/warga_rumah/rumah/rumah_form_page.dart';
 import 'package:pbl_jawara_test/pages/warga_rumah/keluarga/keluarga_page.dart';
 import 'package:pbl_jawara_test/pages/warga_rumah/keluarga/keluarga_detail_page.dart';
 import 'package:pbl_jawara_test/pages/warga_rumah/keluarga/keluarga_form_page.dart';
+import 'package:pbl_jawara_test/pages/warga/warga_self_register_page.dart';
 import 'package:pbl_jawara_test/pages/admin/verification_warga_page.dart';
+import 'package:pbl_jawara_test/utils/user_storage.dart';
 
 import 'screen/pemasukan/menu_pemasukan.dart';
 import 'screen/pemasukan/kategori_iuran.dart';
@@ -76,11 +78,11 @@ final appRouter = GoRouter(
       },
     ),
     // ====== Warga Self Register ======
-    // GoRoute(
-    //   path: '/warga-self-register',
-    //   name: 'warga-self-register',
-    //   builder: (context, state) => const _WargaSelfRegisterWrapper(),
-    // ),
+    GoRoute(
+      path: '/warga-self-register',
+      name: 'warga-self-register',
+      builder: (context, state) => const _WargaSelfRegisterWrapper(),
+    ),
     // ====== Verifikasi Data Warga (Admin Only) ======
     GoRoute(
       path: '/verification-warga',
@@ -238,3 +240,26 @@ final appRouter = GoRouter(
 );
 
 
+// Wrapper widget for WargaSelfRegisterPage
+class _WargaSelfRegisterWrapper extends StatelessWidget {
+  const _WargaSelfRegisterWrapper();
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<String?>(
+      future: UserStorage.getToken(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
+        
+        final token = snapshot.data ?? '';
+        return WargaSelfRegisterPage(token: token);
+      },
+    );
+  }
+}
