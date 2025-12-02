@@ -67,9 +67,9 @@ class _MenuPopUpContentState extends State<_MenuPopUpContent> {
   }
 
   bool _isAdminRole() {
-    return _userRole == 'adminSistem' ||
-        _userRole == 'ketuaRT' ||
-        _userRole == 'ketuaRW';
+    return _userRole == 'adminSistem' || 
+           _userRole == 'ketuaRT' || 
+           _userRole == 'ketuaRW';
   }
 
   int _getCrossAxisCount(double width) {
@@ -198,6 +198,20 @@ class _MenuPopUpContentState extends State<_MenuPopUpContent> {
         'adminOnly': true,
       },
       {
+        'icon': Icons.family_restroom,
+        'title': 'Kelola Keluarga',
+        'action': () => context.push('/kelola-keluarga'),
+        'color': Colors.teal,
+        'adminOnly': true,
+      },
+      {
+        'icon': Icons.home_work,
+        'title': 'Kelola Rumah',
+        'action': () => context.push('/kelola-rumah'),
+        'color': Colors.brown,
+        'adminOnly': true,
+      },
+      {
         'icon': Icons.message_rounded,
         'title': 'Pesan Warga',
         'action': () => showFeatureNotReady(context),
@@ -297,8 +311,7 @@ class _MenuPopUpContentState extends State<_MenuPopUpContent> {
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: [
                         BoxShadow(
-                          color: (item['color'] ?? const Color(0xFF00A89D))
-                              .withOpacity(0.3),
+                          color: (item['color'] ?? const Color(0xFF00A89D)).withOpacity(0.3),
                           blurRadius: 8,
                           offset: const Offset(0, 4),
                         ),
