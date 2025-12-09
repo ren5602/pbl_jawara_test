@@ -32,7 +32,7 @@ class _VerificationWargaPageState extends State<VerificationWargaPage> {
     _token = await UserStorage.getToken();
     if (_token != null) {
       final result = await _verificationService.getAllVerifications(_token!);
-      
+
       print('===== VERIFICATION DATA DEBUG =====');
       print('Result success: ${result['success']}');
       print('Result data type: ${result['data'].runtimeType}');
@@ -40,11 +40,12 @@ class _VerificationWargaPageState extends State<VerificationWargaPage> {
         print('Data count: ${(result['data'] as List).length}');
         if ((result['data'] as List).isNotEmpty) {
           print('First item: ${(result['data'] as List).first}');
-          print('Status values: ${(result['data'] as List).map((e) => e['status']).toList()}');
+          print(
+              'Status values: ${(result['data'] as List).map((e) => e['status']).toList()}');
         }
       }
       print('====================================');
-      
+
       if (mounted) {
         setState(() {
           if (result['success'] == true && result['data'] != null) {
@@ -75,7 +76,7 @@ class _VerificationWargaPageState extends State<VerificationWargaPage> {
       } else {
         _filteredVerifications = _allVerifications.where((item) {
           final status = item['status']?.toString().toLowerCase() ?? '';
-          
+
           switch (_selectedFilter) {
             case 'pending':
               return status == 'pending';
@@ -89,7 +90,7 @@ class _VerificationWargaPageState extends State<VerificationWargaPage> {
           }
         }).toList();
       }
-      
+
       print('Filter applied: $_selectedFilter');
       print('Total all: ${_allVerifications.length}');
       print('Filtered: ${_filteredVerifications.length}');
@@ -108,7 +109,8 @@ class _VerificationWargaPageState extends State<VerificationWargaPage> {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Konfirmasi'),
-        content: const Text('Apakah Anda yakin ingin menyetujui verifikasi ini?'),
+        content:
+            const Text('Apakah Anda yakin ingin menyetujui verifikasi ini?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
@@ -127,19 +129,20 @@ class _VerificationWargaPageState extends State<VerificationWargaPage> {
     );
 
     if (confirm == true && _token != null) {
-      final result = await _verificationService.approveVerification(_token!, id);
-      
+      final result =
+          await _verificationService.approveVerification(_token!, id);
+
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(result['message'] ?? 'Verifikasi disetujui'),
-            backgroundColor: result['success'] == true ? Colors.green : Colors.red,
+            content: Text(result['message'] ?? 'Data warga berhasil disetujui'),
+            backgroundColor: Colors.green,
+            duration: const Duration(seconds: 3),
           ),
         );
 
-        if (result['success'] == true) {
-          _loadData(); // Reload data
-        }
+        // Always reload data after action
+        await _loadData();
       }
     }
   }
@@ -169,18 +172,19 @@ class _VerificationWargaPageState extends State<VerificationWargaPage> {
 
     if (confirm == true && _token != null) {
       final result = await _verificationService.rejectVerification(_token!, id);
-      
+
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(result['message'] ?? 'Verifikasi ditolak'),
-            backgroundColor: result['success'] == true ? Colors.orange : Colors.red,
+            content: Text(result['message'] ?? 'Data warga berhasil ditolak'),
+            backgroundColor:
+                result['success'] == true ? Colors.orange : Colors.red,
+            duration: const Duration(seconds: 3),
           ),
         );
 
-        if (result['success'] == true) {
-          _loadData(); // Reload data
-        }
+        // Always reload data after action
+        await _loadData();
       }
     }
   }
@@ -218,7 +222,7 @@ class _VerificationWargaPageState extends State<VerificationWargaPage> {
             ),
           ),
           const Divider(height: 1),
-          
+
           // Content
           Expanded(
             child: _isLoading
@@ -296,7 +300,7 @@ class _VerificationWargaPageState extends State<VerificationWargaPage> {
   Widget _buildVerificationCard(Map<String, dynamic> data) {
     // Extract extra_data if exists (might be string JSON or already a Map)
     Map<String, dynamic>? extraData;
-    
+
     if (data['extra_data'] != null) {
       if (data['extra_data'] is String) {
         try {
@@ -308,14 +312,14 @@ class _VerificationWargaPageState extends State<VerificationWargaPage> {
         extraData = data['extra_data'] as Map<String, dynamic>;
       }
     }
-    
+
     final status = data['status']?.toString() ?? 'pending';
-    
+
     // Warna berdasarkan status
     Color statusColor;
     Color cardBorderColor;
     Color cardBackgroundColor;
-    
+
     if (status == 'approved' || status == 'accepted') {
       statusColor = Colors.green;
       cardBorderColor = Colors.green;
@@ -332,13 +336,24 @@ class _VerificationWargaPageState extends State<VerificationWargaPage> {
     }
 
     // Get data from extra_data or fallback to main data
-    final nik = data['nik_baru']?.toString() ?? data['nik']?.toString() ?? 'N/A';
-    final namaWarga = data['namaWarga_baru']?.toString() ?? data['namaWarga']?.toString() ?? 'N/A';
-    final jenisKelamin = extraData?['jenisKelamin']?.toString() ?? data['jenisKelamin']?.toString() ?? 'N/A';
-    final statusDomisili = extraData?['statusDomisili']?.toString() ?? data['statusDomisili']?.toString() ?? 'N/A';
-    final statusHidup = extraData?['statusHidup']?.toString() ?? data['statusHidup']?.toString() ?? 'N/A';
-    final userId = data['user_id']?.toString() ?? data['userId']?.toString() ?? 'N/A';
-    final fotoKtp = extraData?['foto_ktp']?.toString() ?? data['foto_ktp']?.toString();
+    final nik =
+        data['nik_baru']?.toString() ?? data['nik']?.toString() ?? 'N/A';
+    final namaWarga = data['namaWarga_baru']?.toString() ??
+        data['namaWarga']?.toString() ??
+        'N/A';
+    final jenisKelamin = extraData?['jenisKelamin']?.toString() ??
+        data['jenisKelamin']?.toString() ??
+        'N/A';
+    final statusDomisili = extraData?['statusDomisili']?.toString() ??
+        data['statusDomisili']?.toString() ??
+        'N/A';
+    final statusHidup = extraData?['statusHidup']?.toString() ??
+        data['statusHidup']?.toString() ??
+        'N/A';
+    final userId =
+        data['user_id']?.toString() ?? data['userId']?.toString() ?? 'N/A';
+    final fotoKtp =
+        extraData?['foto_ktp']?.toString() ?? data['foto_ktp']?.toString();
 
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
@@ -380,7 +395,8 @@ class _VerificationWargaPageState extends State<VerificationWargaPage> {
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: BoxDecoration(
                       color: statusColor.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(20),
@@ -397,8 +413,8 @@ class _VerificationWargaPageState extends State<VerificationWargaPage> {
                   ),
                 ],
               ),
-                const Divider(height: 24),
-              
+              const Divider(height: 24),
+
               // Data warga
               _buildInfoRow('Nama Warga', namaWarga),
               const SizedBox(height: 8),
@@ -410,8 +426,8 @@ class _VerificationWargaPageState extends State<VerificationWargaPage> {
               const SizedBox(height: 8),
               _buildInfoRow('Status Hidup', statusHidup),
               const SizedBox(height: 8),
-                _buildInfoRow('User ID', userId),
-              
+              _buildInfoRow('User ID', userId),
+
               // Foto KTP
               if (fotoKtp != null) ...[
                 const SizedBox(height: 16),
@@ -442,7 +458,7 @@ class _VerificationWargaPageState extends State<VerificationWargaPage> {
                   ),
                 ),
               ],
-              
+
               // Action buttons (hanya tampil jika status pending)
               if (status == 'pending') ...[
                 const SizedBox(height: 16),
