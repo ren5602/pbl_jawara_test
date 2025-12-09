@@ -7,9 +7,9 @@ class RumahFormPage extends StatefulWidget {
   final String? rumahId; // null = add mode, provided = edit mode
 
   const RumahFormPage({
-    Key? key,
+    super.key,
     this.rumahId,
-  }) : super(key: key);
+  });
 
   @override
   State<RumahFormPage> createState() => _RumahFormPageState();
@@ -366,7 +366,7 @@ class _RumahFormPageState extends State<RumahFormPage> {
           ),
           const SizedBox(height: 8),
           DropdownButtonFormField<String>(
-            value: value,
+            initialValue: value,
             items: items
                 .map((item) => DropdownMenuItem(
                       value: item,

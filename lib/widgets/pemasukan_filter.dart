@@ -62,7 +62,7 @@ class _PemasukanFilterState extends State<PemasukanFilter> {
         ),
         const SizedBox(height: 16),
         DropdownButtonFormField<String>(
-          value: selectedKategori,
+          initialValue: selectedKategori,
           hint: const Text("Pilih Kategori"),
           isExpanded: true,
           decoration: InputDecoration(

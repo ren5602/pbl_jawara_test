@@ -7,9 +7,9 @@ class KeluargaFormPage extends StatefulWidget {
   final String? keluargaId; // null = add mode, provided = edit mode
 
   const KeluargaFormPage({
-    Key? key,
+    super.key,
     this.keluargaId,
-  }) : super(key: key);
+  });
 
   @override
   State<KeluargaFormPage> createState() => _KeluargaFormPageState();

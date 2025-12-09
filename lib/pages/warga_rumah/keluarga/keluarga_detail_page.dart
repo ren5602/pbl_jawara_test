@@ -7,9 +7,9 @@ class KeluargaDetailPage extends StatefulWidget {
   final String keluargaId;
 
   const KeluargaDetailPage({
-    Key? key,
+    super.key,
     required this.keluargaId,
-  }) : super(key: key);
+  });
 
   @override
   State<KeluargaDetailPage> createState() => _KeluargaDetailPageState();

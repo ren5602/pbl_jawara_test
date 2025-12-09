@@ -6,10 +6,10 @@ class WargaListItem extends StatelessWidget {
   final VoidCallback onTap;
 
   const WargaListItem({
-    Key? key,
+    super.key,
     required this.warga,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   Color _getStatusColor() {
     if (warga.statusHidup == 'meninggal') {

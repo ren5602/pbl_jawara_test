@@ -6,10 +6,10 @@ class KeluargaListItem extends StatelessWidget {
   final VoidCallback onTap;
 
   const KeluargaListItem({
-    Key? key,
+    super.key,
     required this.keluarga,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

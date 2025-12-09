@@ -60,7 +60,7 @@ class IuranTable extends StatelessWidget {
         columnSpacing: 12,
         horizontalMargin: 12,
         minWidth: 300,
-        headingRowColor: MaterialStateProperty.all(
+        headingRowColor: WidgetStateProperty.all(
           theme.colorScheme.primary.withOpacity(0.1),
         ),
         headingTextStyle: TextStyle(

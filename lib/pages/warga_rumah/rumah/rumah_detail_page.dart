@@ -7,9 +7,9 @@ class RumahDetailPage extends StatefulWidget {
   final String rumahId;
 
   const RumahDetailPage({
-    Key? key,
+    super.key,
     required this.rumahId,
-  }) : super(key: key);
+  });
 
   @override
   State<RumahDetailPage> createState() => _RumahDetailPageState();

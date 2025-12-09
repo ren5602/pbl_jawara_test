@@ -110,7 +110,7 @@ class _AddPemasukanDialogState extends State<AddPemasukanDialog> {
 
   Widget _buildJenisDropdown() {
     return DropdownButtonFormField<String>(
-      value: _selectedJenis,
+      initialValue: _selectedJenis,
       decoration: InputDecoration(
         labelText: "Jenis Pemasukan",
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),

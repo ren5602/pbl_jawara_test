@@ -8,6 +8,7 @@ import 'package:pbl_jawara_test/models/warga.dart';
 import 'package:pbl_jawara_test/utils/user_storage.dart';
 
 class WargaService {
+  
   /// Self-register warga profile with KTP verification
   /// Returns response with success status and message
   Future<Map<String, dynamic>> selfRegister({
@@ -47,7 +48,7 @@ class WargaService {
       request.fields['jenisKelamin'] = jenisKelamin;
       request.fields['statusDomisili'] = statusDomisili;
       request.fields['statusHidup'] = statusHidup;
-
+      
       if (keluargaId != null) {
         request.fields['keluargaId'] = keluargaId.toString();
       }
@@ -96,9 +97,7 @@ class WargaService {
       } else {
         return {
           'success': false,
-          'message': data['message'] ??
-              data['error'] ??
-              'Gagal mendaftarkan data warga',
+          'message': data['message'] ?? data['error'] ?? 'Gagal mendaftarkan data warga',
         };
       }
     } catch (e) {
@@ -145,15 +144,15 @@ class WargaService {
       // Ambil userId dari storage dulu
       final userData = await UserStorage.getUserData();
       int? loggedInUserId;
-
+      
       if (userData != null) {
         try {
-          loggedInUserId = userData['id'] is int
-              ? userData['id']
-              : int.tryParse(userData['id'].toString());
+          loggedInUserId = userData['id'] is int 
+            ? userData['id'] 
+            : int.tryParse(userData['id'].toString());
           print('Logged in userId from storage: $loggedInUserId');
         } catch (e) {
-          print('Error parsing user data: $e');
+          print('Kesalahan parsing data pengguna: $e');
         }
       }
 
@@ -169,7 +168,7 @@ class WargaService {
       if (profileResponse.statusCode == 200) {
         final profileData = jsonDecode(profileResponse.body);
         final warga = profileData['warga'];
-
+        
         // Jika ada data warga dari profile, return
         if (warga != null) {
           return {
@@ -179,18 +178,18 @@ class WargaService {
             'status': warga['status'] ?? 'approved',
           };
         }
-
+        
         // Update userId dari profile jika ada
         if (profileData['id'] != null && loggedInUserId == null) {
-          loggedInUserId = profileData['id'] is int
-              ? profileData['id']
-              : int.tryParse(profileData['id'].toString());
+          loggedInUserId = profileData['id'] is int 
+            ? profileData['id'] 
+            : int.tryParse(profileData['id'].toString());
         }
       }
 
       // Jika tidak ada userId, return tidak ada profile
       if (loggedInUserId == null) {
-        print('ERROR: Cannot get logged in userId');
+        print('KESALAHAN: Tidak dapat mengambil userId yang login');
         return {
           'success': true,
           'hasProfile': false,
@@ -210,26 +209,23 @@ class WargaService {
       if (wargaResponse.statusCode == 200) {
         final wargaData = jsonDecode(wargaResponse.body);
         final wargaList = wargaData['data'] as List? ?? [];
-
+        
         print('Looking for userId: $loggedInUserId');
         print('Warga list count: ${wargaList.length}');
-
+        
         // Cari warga dengan userId yang sama
         Map<String, dynamic>? myWarga;
-
+        
         for (var warga in wargaList) {
           final wargaMap = warga as Map<String, dynamic>;
           final wargaUserId = wargaMap['userId'];
-
-          print(
-              'Checking warga: NIK=${wargaMap['nik']}, userId=$wargaUserId, status=${wargaMap['status']}');
-
+          
+          print('Checking warga: NIK=${wargaMap['nik']}, userId=$wargaUserId, status=${wargaMap['status']}');
+          
           // Compare userId (convert both to int for comparison)
           if (wargaUserId != null) {
-            final wargaUserIdInt = wargaUserId is int
-                ? wargaUserId
-                : int.tryParse(wargaUserId.toString());
-
+            final wargaUserIdInt = wargaUserId is int ? wargaUserId : int.tryParse(wargaUserId.toString());
+            
             if (wargaUserIdInt == loggedInUserId) {
               myWarga = wargaMap;
               print('Found matching warga!');
@@ -237,7 +233,7 @@ class WargaService {
             }
           }
         }
-
+        
         if (myWarga != null) {
           print('Found my warga: $myWarga');
           return {
@@ -268,8 +264,7 @@ class WargaService {
   }
 
   /// Get warga by NIK from API (requires authentication)
-  Future<Map<String, dynamic>> getWargaByNikFromApi(
-      String token, String nik) async {
+  Future<Map<String, dynamic>> getWargaByNikFromApi(String token, String nik) async {
     try {
       final response = await http.get(
         Uri.parse('${ApiConfig.warga}/$nik'),
@@ -310,11 +305,10 @@ class WargaService {
   }) async {
     try {
       final Map<String, dynamic> requestBody = {};
-
+      
       if (namaWarga != null) requestBody['namaWarga'] = namaWarga;
       if (jenisKelamin != null) requestBody['jenisKelamin'] = jenisKelamin;
-      if (statusDomisili != null)
-        requestBody['statusDomisili'] = statusDomisili;
+      if (statusDomisili != null) requestBody['statusDomisili'] = statusDomisili;
       if (statusHidup != null) requestBody['statusHidup'] = statusHidup;
       if (keluargaId != null) requestBody['keluargaId'] = keluargaId;
 

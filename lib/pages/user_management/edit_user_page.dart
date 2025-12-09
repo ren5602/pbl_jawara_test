@@ -419,7 +419,7 @@ class _EditUserPageState extends State<EditUserPage> {
     final categories = _userService.getCategories();
 
     return DropdownButtonFormField<String>(
-      value: _selectedRole,
+      initialValue: _selectedRole,
       decoration: InputDecoration(
         hintText: '-- Pilih Kategori --',
         hintStyle: TextStyle(color: Colors.grey[400]),

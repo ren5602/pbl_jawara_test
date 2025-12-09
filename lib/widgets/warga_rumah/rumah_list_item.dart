@@ -6,10 +6,10 @@ class RumahListItem extends StatelessWidget {
   final VoidCallback onTap;
 
   const RumahListItem({
-    Key? key,
+    super.key,
     required this.rumah,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   Color _getStatusColor() {
     return rumah.statusKepemilikan == 'kontrak'

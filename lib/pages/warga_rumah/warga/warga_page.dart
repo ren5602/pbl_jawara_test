@@ -6,7 +6,7 @@ import 'package:pbl_jawara_test/widgets/warga_rumah/warga_list_item.dart';
 import 'package:pbl_jawara_test/widgets/bottom_navbar_widget.dart';
 
 class WargaPage extends StatefulWidget {
-  const WargaPage({Key? key}) : super(key: key);
+  const WargaPage({super.key});
 
   @override
   State<WargaPage> createState() => _WargaPageState();

@@ -6,7 +6,7 @@ import 'package:pbl_jawara_test/widgets/warga_rumah/rumah_list_item.dart';
 import 'package:pbl_jawara_test/widgets/bottom_navbar_widget.dart';
 
 class RumahPage extends StatefulWidget {
-  const RumahPage({Key? key}) : super(key: key);
+  const RumahPage({super.key});
 
   @override
   State<RumahPage> createState() => _RumahPageState();

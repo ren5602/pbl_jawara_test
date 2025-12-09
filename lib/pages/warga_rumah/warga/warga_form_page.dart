@@ -7,9 +7,9 @@ class WargaFormPage extends StatefulWidget {
   final String? wargaId; // null = add mode, provided = edit mode
 
   const WargaFormPage({
-    Key? key,
+    super.key,
     this.wargaId,
-  }) : super(key: key);
+  });
 
   @override
   State<WargaFormPage> createState() => _WargaFormPageState();
@@ -399,7 +399,7 @@ class _WargaFormPageState extends State<WargaFormPage> {
           ),
           const SizedBox(height: 8),
           DropdownButtonFormField<String>(
-            value: value,
+            initialValue: value,
             items: items
                 .map((item) => DropdownMenuItem(
                       value: item,
