@@ -20,7 +20,7 @@ class _MenuPemasukanState extends State<MenuPemasukan> {
         foregroundColor: Colors.white,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.go('/dashboard'),
+          onPressed: () => context.go('/home'),
         ),
       ),
       // Aktifkan agar body bisa “tembus” ke bawah navigation bar yang melayang
@@ -78,14 +78,13 @@ class _MenuPemasukanItemState extends State<MenuPemasukanItem> {
       },
       borderRadius: BorderRadius.circular(
         16,
-      ), 
+      ),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 50),
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
         decoration: BoxDecoration(
           color: _isHovering
-              ? colorScheme
-                    .surfaceContainerHighest 
+              ? colorScheme.surfaceContainerHighest
               : Colors.transparent,
           borderRadius: BorderRadius.circular(16),
         ),
@@ -105,7 +104,7 @@ class _MenuPemasukanItemState extends State<MenuPemasukanItem> {
             const SizedBox(height: 8),
             Text(
               widget.label,
-              textAlign: TextAlign.center, 
+              textAlign: TextAlign.center,
               style: textTheme.bodyMedium!.copyWith(
                 color: colorScheme.onSurface,
                 fontWeight: FontWeight.w600,

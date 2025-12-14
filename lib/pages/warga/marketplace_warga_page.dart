@@ -68,27 +68,30 @@ class _MarketplaceWargaPageState extends State<MarketplaceWargaPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Marketplace',
-          style: TextStyle(color: Colors.white),
-        ),
-        backgroundColor: const Color(0xFF00B894),
-        iconTheme: const IconThemeData(color: Colors.white),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.receipt_long),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const HistoriTransaksiPage(),
-                ),
-              );
-            },
-            tooltip: 'Histori Transaksi',
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () => context.go('/home'),
           ),
-        ]
-      ),
+          title: const Text(
+            'Marketplace',
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: const Color(0xFF00B894),
+          iconTheme: const IconThemeData(color: Colors.white),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.receipt_long),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const HistoriTransaksiPage(),
+                  ),
+                );
+              },
+              tooltip: 'Histori Transaksi',
+            ),
+          ]),
       body: _isLoading
           ? const Center(
               child: Column(
@@ -158,7 +161,8 @@ class _MarketplaceWargaPageState extends State<MarketplaceWargaPage> {
         children: [
           if (imageUrl.isNotEmpty)
             ClipRRect(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(12)),
               child: Image.network(
                 imageUrl,
                 width: double.infinity,
@@ -173,7 +177,6 @@ class _MarketplaceWargaPageState extends State<MarketplaceWargaPage> {
                 },
               ),
             ),
-          
           Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
@@ -253,17 +256,18 @@ class _MarketplaceWargaPageState extends State<MarketplaceWargaPage> {
     try {
       final number = int.parse(price);
       return number.toString().replaceAllMapped(
-        RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-        (Match m) => '${m[1]}.',
-      );
+            RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+            (Match m) => '${m[1]}.',
+          );
     } catch (e) {
       return price;
     }
   }
 
   Future<void> _handleBeli(Map<String, dynamic> item) async {
-    final TextEditingController jumlahController = TextEditingController(text: '1');
-    
+    final TextEditingController jumlahController =
+        TextEditingController(text: '1');
+
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
@@ -318,7 +322,7 @@ class _MarketplaceWargaPageState extends State<MarketplaceWargaPage> {
 
     if (confirmed == true && _token != null) {
       final jumlah = int.tryParse(jumlahController.text) ?? 0;
-      
+
       if (jumlah <= 0) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -349,11 +353,12 @@ class _MarketplaceWargaPageState extends State<MarketplaceWargaPage> {
 
       if (mounted) {
         Navigator.pop(context); // Close loading dialog
-        
+
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(result['message'] ?? 'Transaksi berhasil'),
-            backgroundColor: result['success'] == true ? Colors.green : Colors.red,
+            backgroundColor:
+                result['success'] == true ? Colors.green : Colors.red,
             duration: const Duration(seconds: 3),
           ),
         );

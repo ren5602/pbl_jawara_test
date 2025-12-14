@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:pbl_jawara_test/services/transaksi_service.dart';
 import 'package:pbl_jawara_test/utils/user_storage.dart';
@@ -37,7 +38,8 @@ class _HistoriTransaksiPageState extends State<HistoriTransaksiPage> {
           if (result['success'] == true && result['data'] != null) {
             final responseData = result['data'];
             if (responseData is Map && responseData['data'] is List) {
-              _transaksiList = List<Map<String, dynamic>>.from(responseData['data']);
+              _transaksiList =
+                  List<Map<String, dynamic>>.from(responseData['data']);
             } else if (responseData is List) {
               _transaksiList = List<Map<String, dynamic>>.from(responseData);
             } else {
@@ -65,7 +67,7 @@ class _HistoriTransaksiPageState extends State<HistoriTransaksiPage> {
       symbol: 'Rp ',
       decimalDigits: 0,
     );
-    
+
     if (value is int) {
       return formatter.format(value);
     } else if (value is String) {
@@ -114,6 +116,10 @@ class _HistoriTransaksiPageState extends State<HistoriTransaksiPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => context.go('/home'),
+        ),
         title: const Text(
           'Histori Transaksi',
           style: TextStyle(color: Colors.white),
@@ -153,25 +159,31 @@ class _HistoriTransaksiPageState extends State<HistoriTransaksiPage> {
                       final transaksi = _transaksiList[index];
                       final marketplace = transaksi['marketPlace'];
                       final user = transaksi['user'];
-                      
+
                       // Format tanggal untuk judul
                       String tanggalText = '';
                       try {
-                        final createdAtStr = transaksi['created_at']?.toString() ?? '';
+                        final createdAtStr =
+                            transaksi['created_at']?.toString() ?? '';
                         if (createdAtStr.isNotEmpty) {
                           final createdAt = DateTime.parse(createdAtStr);
-                          tanggalText = DateFormat('dd/MM/yyyy').format(createdAt);
+                          tanggalText =
+                              DateFormat('dd/MM/yyyy').format(createdAt);
                         } else {
-                          tanggalText = DateFormat('dd/MM/yyyy').format(DateTime.now());
+                          tanggalText =
+                              DateFormat('dd/MM/yyyy').format(DateTime.now());
                         }
                       } catch (e) {
                         print('Error parsing date: $e');
-                        tanggalText = DateFormat('dd/MM/yyyy').format(DateTime.now());
+                        tanggalText =
+                            DateFormat('dd/MM/yyyy').format(DateTime.now());
                       }
-                      
-                      final namaBarang = marketplace?['namaProduk']?.toString() ?? 'Produk';
-                      final judulTransaksi = 'Transaksi $namaBarang - $tanggalText';
-                      
+
+                      final namaBarang =
+                          marketplace?['namaProduk']?.toString() ?? 'Produk';
+                      final judulTransaksi =
+                          'Transaksi $namaBarang - $tanggalText';
+
                       return Card(
                         margin: const EdgeInsets.only(bottom: 16),
                         elevation: 2,
@@ -190,7 +202,8 @@ class _HistoriTransaksiPageState extends State<HistoriTransaksiPage> {
                               children: [
                                 // Header with status
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Expanded(
                                       child: Text(
@@ -209,7 +222,8 @@ class _HistoriTransaksiPageState extends State<HistoriTransaksiPage> {
                                         vertical: 4,
                                       ),
                                       decoration: BoxDecoration(
-                                        color: _getStatusColor(transaksi['status']),
+                                        color: _getStatusColor(
+                                            transaksi['status']),
                                         borderRadius: BorderRadius.circular(12),
                                       ),
                                       child: Text(
@@ -224,7 +238,7 @@ class _HistoriTransaksiPageState extends State<HistoriTransaksiPage> {
                                   ],
                                 ),
                                 const Divider(height: 24),
-                                
+
                                 // Marketplace item info
                                 if (marketplace != null) ...[
                                   Row(
@@ -248,7 +262,7 @@ class _HistoriTransaksiPageState extends State<HistoriTransaksiPage> {
                                   ),
                                   const SizedBox(height: 8),
                                 ],
-                                
+
                                 // Quantity and price
                                 Row(
                                   children: [
@@ -267,7 +281,7 @@ class _HistoriTransaksiPageState extends State<HistoriTransaksiPage> {
                                   ],
                                 ),
                                 const SizedBox(height: 8),
-                                
+
                                 Row(
                                   children: [
                                     const Icon(
@@ -285,16 +299,18 @@ class _HistoriTransaksiPageState extends State<HistoriTransaksiPage> {
                                   ],
                                 ),
                                 const SizedBox(height: 12),
-                                
+
                                 // Total price
                                 Container(
                                   padding: const EdgeInsets.all(12),
                                   decoration: BoxDecoration(
-                                    color: const Color(0xFF00B894).withOpacity(0.1),
+                                    color: const Color(0xFF00B894)
+                                        .withOpacity(0.1),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       const Text(
                                         'Total Harga',
@@ -304,7 +320,8 @@ class _HistoriTransaksiPageState extends State<HistoriTransaksiPage> {
                                         ),
                                       ),
                                       Text(
-                                        _formatCurrency(transaksi['total_harga']),
+                                        _formatCurrency(
+                                            transaksi['total_harga']),
                                         style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 16,
@@ -315,7 +332,7 @@ class _HistoriTransaksiPageState extends State<HistoriTransaksiPage> {
                                   ),
                                 ),
                                 const SizedBox(height: 12),
-                                
+
                                 // Date
                                 Row(
                                   children: [
@@ -347,7 +364,7 @@ class _HistoriTransaksiPageState extends State<HistoriTransaksiPage> {
 
   void _showTransactionDetail(Map<String, dynamic> transaksi) {
     final marketplace = transaksi['marketPlace'];
-    
+
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -359,7 +376,6 @@ class _HistoriTransaksiPageState extends State<HistoriTransaksiPage> {
             children: [
               _buildDetailRow('Status', _getStatusText(transaksi['status'])),
               const Divider(),
-              
               if (marketplace != null) ...[
                 const Text(
                   'Informasi Produk',
@@ -369,11 +385,11 @@ class _HistoriTransaksiPageState extends State<HistoriTransaksiPage> {
                   ),
                 ),
                 const SizedBox(height: 8),
-                _buildDetailRow('Nama Produk', marketplace['namaProduk'] ?? '-'),
+                _buildDetailRow(
+                    'Nama Produk', marketplace['namaProduk'] ?? '-'),
                 _buildDetailRow('Penjual', marketplace['gambar'] ?? '-'),
                 const Divider(),
               ],
-              
               const Text(
                 'Informasi Pembelian',
                 style: TextStyle(
@@ -383,11 +399,13 @@ class _HistoriTransaksiPageState extends State<HistoriTransaksiPage> {
               ),
               const SizedBox(height: 8),
               _buildDetailRow('Jumlah', '${transaksi['jumlah']} pcs'),
-              _buildDetailRow('Harga Satuan', _formatCurrency(transaksi['harga_satuan'])),
-              _buildDetailRow('Total Harga', _formatCurrency(transaksi['total_harga'])),
+              _buildDetailRow(
+                  'Harga Satuan', _formatCurrency(transaksi['harga_satuan'])),
+              _buildDetailRow(
+                  'Total Harga', _formatCurrency(transaksi['total_harga'])),
               const Divider(),
-              
-              _buildDetailRow('Tanggal Transaksi', _formatDate(transaksi['created_at'])),
+              _buildDetailRow(
+                  'Tanggal Transaksi', _formatDate(transaksi['created_at'])),
             ],
           ),
         ),

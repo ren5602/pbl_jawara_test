@@ -67,9 +67,9 @@ class _MenuPopUpContentState extends State<_MenuPopUpContent> {
   }
 
   bool _isAdminRole() {
-    return _userRole == 'adminSistem' || 
-           _userRole == 'ketuaRT' || 
-           _userRole == 'ketuaRW';
+    return _userRole == 'adminSistem' ||
+        _userRole == 'ketuaRT' ||
+        _userRole == 'ketuaRW';
   }
 
   int _getCrossAxisCount(double width) {
@@ -167,23 +167,23 @@ class _MenuPopUpContentState extends State<_MenuPopUpContent> {
       {
         'icon': Icons.attach_money,
         'title': 'Pengeluaran',
-        'action': () => context.push('/pengeluaran'),
+        'action': () => showFeatureNotReady(context),
       },
       {
         'icon': Icons.attach_money,
         'title': 'Laporan Keuangan',
-        'action': () => context.push('/laporan-keuangan'),
+        'action': () => showFeatureNotReady(context),
       },
       {
         'icon': Icons.event,
         'title': 'Broadcast',
         'action': () => context.push('/broadcast'),
       },
-      {
-        'icon': Icons.people_alt,
-        'title': 'Warga & Rumah',
-        'action': () => context.push('/data-warga-rumah'),
-      },
+      // {
+      //   'icon': Icons.people_alt,
+      //   'title': 'Warga & Rumah',
+      //   'action': () => context.push('/data-warga-rumah'),
+      // },
       {
         'icon': Icons.person_add,
         'title': 'Ajukan Data Warga',
@@ -216,35 +216,35 @@ class _MenuPopUpContentState extends State<_MenuPopUpContent> {
         'title': 'Pesan Warga',
         'action': () => showFeatureNotReady(context),
       },
-      {
-        'icon': Icons.people_alt,
-        'title': 'Penerimaan Warga',
-        'action': () => context.push('/penerimaan-warga'),
-      },
+      // {
+      //   'icon': Icons.people_alt,
+      //   'title': 'Penerimaan Warga',
+      //   'action': () => showFeatureNotReady(context),
+      // },
       {
         'icon': Icons.people_alt,
         'title': 'Mutasi Keluarga',
-        'action': () => context.push('/mutasi'),
+        'action': () => showFeatureNotReady(context),
       },
       {
         'icon': Icons.swap_horiz,
         'title': 'Channel Transfer',
-        'action': () => context.push('/channel-transfer'),
-      },
-      {
-        'icon': Icons.shopping_bag_outlined,
-        'title': 'Marketplace',
         'action': () => showFeatureNotReady(context),
       },
+      // {
+      //   'icon': Icons.shopping_bag_outlined,
+      //   'title': 'Marketplace',
+      //   'action': () => showFeatureNotReady(context),
+      // },
       {
         'icon': Icons.lightbulb_outline,
         'title': 'Aspirasi',
-        'action': () => context.push('/dashboard-aspirasi'),
+        'action': () => showFeatureNotReady(context),
       },
       {
         'icon': Icons.history,
         'title': 'Log Aktifitas',
-        'action': () => context.push('/log-aktivitas'),
+        'action': () => showFeatureNotReady(context),
       },
     ];
 
@@ -311,7 +311,8 @@ class _MenuPopUpContentState extends State<_MenuPopUpContent> {
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: [
                         BoxShadow(
-                          color: (item['color'] ?? const Color(0xFF00A89D)).withOpacity(0.3),
+                          color: (item['color'] ?? const Color(0xFF00A89D))
+                              .withOpacity(0.3),
                           blurRadius: 8,
                           offset: const Offset(0, 4),
                         ),
