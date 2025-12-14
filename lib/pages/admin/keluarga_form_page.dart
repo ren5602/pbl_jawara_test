@@ -81,7 +81,7 @@ class _KeluargaFormPageState extends State<KeluargaFormPage> {
       setState(() {
         _isLoadingData = false;
       });
-      
+
       // Fill form AFTER data is loaded
       if (widget.isEdit && widget.keluargaData != null) {
         _fillFormWithData();
@@ -93,23 +93,25 @@ class _KeluargaFormPageState extends State<KeluargaFormPage> {
     final data = widget.keluargaData!;
     _namaKeluargaController.text = data['namaKeluarga']?.toString() ?? '';
     // Backend uses 'jumlahanggota' (lowercase)
-    _jumlahAnggotaController.text = (data['jumlahanggota'] ?? data['jumlahAnggota'])?.toString() ?? '';
-    
+    _jumlahAnggotaController.text =
+        (data['jumlahanggota'] ?? data['jumlahAnggota'])?.toString() ?? '';
+
     // Get kepala keluarga NIK from object or old field
     String? kepalaId;
     if (data['kepala_keluarga'] != null && data['kepala_keluarga'] is Map) {
       kepalaId = data['kepala_keluarga']['nik']?.toString();
     } else {
-      kepalaId = (data['kepala_Keluarga_Id'] ?? data['kepala_keluarga_id'])?.toString();
+      kepalaId = (data['kepala_Keluarga_Id'] ?? data['kepala_keluarga_id'])
+          ?.toString();
     }
-    
+
     print('Loading kepala keluarga NIK: $kepalaId');
     print('Available warga NIKs: ${_wargaList.map((w) => w['nik']).toList()}');
-    
+
     setState(() {
       _selectedKepalaKeluargaId = kepalaId;
-      _selectedRumahId = data['rumahId'] is int 
-          ? data['rumahId'] 
+      _selectedRumahId = data['rumahId'] is int
+          ? data['rumahId']
           : int.tryParse(data['rumahId']?.toString() ?? '');
     });
   }
@@ -142,7 +144,7 @@ class _KeluargaFormPageState extends State<KeluargaFormPage> {
         'jumlahAnggota': int.parse(_jumlahAnggotaController.text.trim()),
         'kepala_Keluarga_Id': _selectedKepalaKeluargaId!,
       };
-      
+
       // Workaround: send rumahId with multiple field name variations
       if (_selectedRumahId != null) {
         keluargaData['rumahId'] = _selectedRumahId!;
@@ -168,10 +170,10 @@ class _KeluargaFormPageState extends State<KeluargaFormPage> {
       if (result['success']) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(
-              result['message'] ?? 
-              (widget.isEdit ? 'Keluarga berhasil diupdate' : 'Keluarga berhasil ditambahkan')
-            ),
+            content: Text(result['message'] ??
+                (widget.isEdit
+                    ? 'Keluarga berhasil diupdate'
+                    : 'Keluarga berhasil ditambahkan')),
             backgroundColor: Colors.green,
           ),
         );
@@ -179,10 +181,10 @@ class _KeluargaFormPageState extends State<KeluargaFormPage> {
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(
-              result['message'] ?? 
-              (widget.isEdit ? 'Gagal update keluarga' : 'Gagal menambahkan keluarga')
-            ),
+            content: Text(result['message'] ??
+                (widget.isEdit
+                    ? 'Gagal update keluarga'
+                    : 'Gagal menambahkan keluarga')),
             backgroundColor: Colors.red,
           ),
         );
@@ -278,12 +280,16 @@ class _KeluargaFormPageState extends State<KeluargaFormPage> {
                         border: OutlineInputBorder(),
                       ),
                       hint: const Text('Pilih Kepala Keluarga'),
+                      isExpanded: true,
                       items: _wargaList.map((warga) {
                         final nik = warga['nik']?.toString() ?? '';
                         final nama = warga['namaWarga']?.toString() ?? 'N/A';
                         return DropdownMenuItem<String>(
                           value: nik,
-                          child: Text('$nama (NIK: $nik)'),
+                          child: Text(
+                            '$nama (NIK: $nik)',
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         );
                       }).toList(),
                       onChanged: (value) {
@@ -310,8 +316,8 @@ class _KeluargaFormPageState extends State<KeluargaFormPage> {
                       ),
                       hint: const Text('Pilih Rumah'),
                       items: _rumahList.map((rumah) {
-                        final id = rumah['id'] is int 
-                            ? rumah['id'] 
+                        final id = rumah['id'] is int
+                            ? rumah['id']
                             : int.tryParse(rumah['id']?.toString() ?? '');
                         final alamat = rumah['alamat']?.toString() ?? 'N/A';
                         return DropdownMenuItem<int>(
@@ -343,12 +349,15 @@ class _KeluargaFormPageState extends State<KeluargaFormPage> {
                               height: 20,
                               width: 20,
                               child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                                valueColor:
+                                    AlwaysStoppedAnimation<Color>(Colors.white),
                                 strokeWidth: 2,
                               ),
                             )
                           : Text(
-                              widget.isEdit ? 'Update Keluarga' : 'Tambah Keluarga',
+                              widget.isEdit
+                                  ? 'Update Keluarga'
+                                  : 'Tambah Keluarga',
                               style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
