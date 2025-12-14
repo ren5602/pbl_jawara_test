@@ -273,7 +273,7 @@ class _KeluargaFormPageState extends State<KeluargaFormPage> {
 
                     // Kepala Keluarga Dropdown
                     DropdownButtonFormField<String>(
-                      value: _selectedKepalaKeluargaId,
+                      initialValue: _selectedKepalaKeluargaId,
                       decoration: const InputDecoration(
                         labelText: 'Kepala Keluarga',
                         prefixIcon: Icon(Icons.person),
@@ -308,7 +308,7 @@ class _KeluargaFormPageState extends State<KeluargaFormPage> {
 
                     // Rumah Dropdown
                     DropdownButtonFormField<int>(
-                      value: _selectedRumahId,
+                      initialValue: _selectedRumahId,
                       decoration: const InputDecoration(
                         labelText: 'Rumah',
                         prefixIcon: Icon(Icons.home),
