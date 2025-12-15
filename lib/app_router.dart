@@ -298,13 +298,13 @@ final appRouter = GoRouter(
       name: 'kegiatan',
       builder: (context, state) => const KegiatanPage(),
     ),
-    
+
     // Broadcast route
-    GoRoute(
-      path: '/broadcast',
-      name: 'broadcast',
-      //builder: (context, state) => const BroadcastPage(),
-    ),
+    // GoRoute(
+    //   path: '/broadcast',
+    //   name: 'broadcast',
+    //   //builder: (context, state) => const BroadcastPage(),
+    // ),
   ],
 );
 
@@ -462,7 +462,7 @@ class _MarketplaceFormWrapper extends StatelessWidget {
             ),
           );
         }
-        
+
         final token = snapshot.data ?? '';
         return MarketplaceFormPage(
           token: token,

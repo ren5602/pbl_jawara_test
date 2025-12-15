@@ -46,14 +46,16 @@ class _KeluargaFormPageState extends State<KeluargaFormPage> {
     try {
       final keluarga =
           await _keluargaService.getKeluargaById(widget.keluargaId!);
-      setState(() {
-        _existingKeluarga = keluarga;
-        _namaKeluargaController.text = keluarga.namaKeluarga;
-        _kepalKeluargaWargaIdController.text = keluarga.kepaluargaWargaId;
-        _rumahIdController.text = keluarga.rumahId ?? '';
-        _jumlahAnggotaController.text = keluarga.jumlahAnggota.toString();
-      });
-        } catch (e) {
+      if (keluarga != null) {
+        setState(() {
+          _existingKeluarga = keluarga;
+          _namaKeluargaController.text = keluarga.namaKeluarga;
+          _kepalKeluargaWargaIdController.text = keluarga.kepaluargaWargaId;
+          _rumahIdController.text = keluarga.rumahId ?? '';
+          _jumlahAnggotaController.text = keluarga.jumlahAnggota.toString();
+        });
+      }
+    } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
