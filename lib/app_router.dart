@@ -14,18 +14,20 @@ import 'package:pbl_jawara_test/pages/warga_rumah/warga/warga_form_page.dart';
 import 'package:pbl_jawara_test/pages/warga_rumah/rumah/rumah_page.dart';
 import 'package:pbl_jawara_test/pages/warga_rumah/rumah/rumah_detail_page.dart';
 import 'package:pbl_jawara_test/pages/warga_rumah/rumah/rumah_form_page.dart';
-import 'package:pbl_jawara_test/pages/admin/kegiatan_page.dart';
 import 'package:pbl_jawara_test/pages/admin/keluarga_page.dart';
 import 'package:pbl_jawara_test/pages/admin/keluarga_form_page.dart';
 import 'package:pbl_jawara_test/pages/admin/rumah_admin_page.dart';
 import 'package:pbl_jawara_test/pages/admin/rumah_admin_form_page.dart';
 import 'package:pbl_jawara_test/pages/admin/marketplace_admin_page.dart';
 import 'package:pbl_jawara_test/pages/admin/marketplace_form_page.dart';
+import 'package:pbl_jawara_test/pages/admin/kegiatan_page.dart';
+import 'package:pbl_jawara_test/pages/admin/broadcast_page.dart';
 import 'package:pbl_jawara_test/pages/warga/marketplace_warga_page.dart';
 import 'package:pbl_jawara_test/pages/transaksi/histori_transaksi_page.dart';
 import 'package:pbl_jawara_test/pages/warga/warga_self_register_page.dart';
 import 'package:pbl_jawara_test/pages/admin/verification_warga_page.dart';
 import 'package:pbl_jawara_test/utils/user_storage.dart';
+
 import 'screen/pemasukan/menu_pemasukan.dart';
 import 'screen/pemasukan/kategori_iuran.dart';
 import 'screen/pemasukan/detail_kategori_iuran.dart';
@@ -153,7 +155,7 @@ final appRouter = GoRouter(
         return DetailTagihan(kategoriData: data);
       },
     ),
-
+    
     // ====== Data Warga & Rumah Hub ======
     GoRoute(
       path: '/data-warga-rumah',
@@ -258,7 +260,7 @@ final appRouter = GoRouter(
         );
       },
     ),
-
+    
     // Marketplace routes
     GoRoute(
       path: '/marketplace',
@@ -286,25 +288,27 @@ final appRouter = GoRouter(
         );
       },
     ),
+    
+    // Transaksi routes
     GoRoute(
       path: '/histori-transaksi',
       name: 'histori-transaksi',
       builder: (context, state) => const HistoriTransaksiPage(),
     ),
-
+    
     // Kegiatan Warga route
     GoRoute(
       path: '/kegiatan',
       name: 'kegiatan',
       builder: (context, state) => const KegiatanPage(),
     ),
-
+    
     // Broadcast route
-    // GoRoute(
-    //   path: '/broadcast',
-    //   name: 'broadcast',
-    //   //builder: (context, state) => const BroadcastPage(),
-    // ),
+    GoRoute(
+      path: '/broadcast',
+      name: 'broadcast',
+      builder: (context, state) => const BroadcastPage(),
+    ),
   ],
 );
 
@@ -324,7 +328,7 @@ class _WargaSelfRegisterWrapper extends StatelessWidget {
             ),
           );
         }
-
+        
         final token = snapshot.data ?? '';
         return WargaSelfRegisterPage(token: token);
       },
@@ -364,7 +368,7 @@ class _KeluargaFormWrapper extends StatelessWidget {
             ),
           );
         }
-
+        
         final token = snapshot.data ?? '';
         return KeluargaFormPage(
           token: token,
@@ -408,7 +412,7 @@ class _RumahAdminFormWrapper extends StatelessWidget {
             ),
           );
         }
-
+        
         final token = snapshot.data ?? '';
         return RumahAdminFormPage(
           token: token,
@@ -462,7 +466,7 @@ class _MarketplaceFormWrapper extends StatelessWidget {
             ),
           );
         }
-
+        
         final token = snapshot.data ?? '';
         return MarketplaceFormPage(
           token: token,
