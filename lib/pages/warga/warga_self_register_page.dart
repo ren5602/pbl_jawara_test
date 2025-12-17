@@ -557,7 +557,7 @@ class _WargaSelfRegisterPageState extends State<WargaSelfRegisterPage> {
 
               // Jenis Kelamin Dropdown
               DropdownButtonFormField<String>(
-                value: _jenisKelamin,
+                initialValue: _jenisKelamin,
                 decoration: const InputDecoration(
                   labelText: 'Jenis Kelamin',
                   prefixIcon: Icon(Icons.wc),
@@ -579,7 +579,7 @@ class _WargaSelfRegisterPageState extends State<WargaSelfRegisterPage> {
 
               // Status Domisili Dropdown
               DropdownButtonFormField<String>(
-                value: _statusDomisili,
+                initialValue: _statusDomisili,
                 decoration: const InputDecoration(
                   labelText: 'Status Domisili',
                   prefixIcon: Icon(Icons.home),
@@ -601,7 +601,7 @@ class _WargaSelfRegisterPageState extends State<WargaSelfRegisterPage> {
 
               // Status Hidup Dropdown
               DropdownButtonFormField<String>(
-                value: _statusHidup,
+                initialValue: _statusHidup,
                 decoration: const InputDecoration(
                   labelText: 'Status Hidup',
                   prefixIcon: Icon(Icons.favorite),

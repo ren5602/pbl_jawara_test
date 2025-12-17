@@ -167,7 +167,8 @@ class _MenuPopUpContentState extends State<_MenuPopUpContent> {
       {
         'icon': Icons.attach_money,
         'title': 'Pengeluaran',
-        'action': () => showFeatureNotReady(context),
+        'action': () => context.push('/pengeluaran'),
+        'color': const Color(0xFF00B894),
       },
       {
         'icon': Icons.attach_money,
@@ -239,7 +240,8 @@ class _MenuPopUpContentState extends State<_MenuPopUpContent> {
       {
         'icon': Icons.lightbulb_outline,
         'title': 'Aspirasi',
-        'action': () => showFeatureNotReady(context),
+        'action': () => context.push('/aspirasi'),
+        'color': const Color(0xFF00B894),
       },
       {
         'icon': Icons.history,

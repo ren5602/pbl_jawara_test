@@ -385,7 +385,7 @@ class _WargaDashboardWidgetState extends State<WargaDashboardWidget> {
               ),
             ),
           );
-        }).toList(),
+        }),
       ],
     );
   }

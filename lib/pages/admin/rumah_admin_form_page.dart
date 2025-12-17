@@ -245,7 +245,7 @@ class _RumahAdminFormPageState extends State<RumahAdminFormPage> {
 
                     // Status Kepemilikan Dropdown
                     DropdownButtonFormField<String>(
-                      value: _selectedStatusKepemilikan,
+                      initialValue: _selectedStatusKepemilikan,
                       isExpanded: true,
                       decoration: const InputDecoration(
                         labelText: 'Status Kepemilikan *',
@@ -304,7 +304,7 @@ class _RumahAdminFormPageState extends State<RumahAdminFormPage> {
 
                     // Keluarga Dropdown (Optional)
                     DropdownButtonFormField<int?>(
-                      value: _selectedKeluargaId,
+                      initialValue: _selectedKeluargaId,
                       isExpanded: true,
                       decoration: InputDecoration(
                         labelText: 'Keluarga (Opsional)',
@@ -340,7 +340,7 @@ class _RumahAdminFormPageState extends State<RumahAdminFormPage> {
                             value: idInt,
                             child: Text(nama),
                           );
-                        }).toList(),
+                        }),
                       ],
                       onChanged: (value) {
                         setState(() {
