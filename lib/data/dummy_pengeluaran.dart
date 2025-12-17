@@ -110,7 +110,8 @@ List<Map<String, dynamic>> dummyPengeluaran = [
   {
     'id': 12,
     'nama_pengeluaran': 'Pembelian Material Kebersihan',
-    'deskripsi': 'Pembelian sapu, pel, desinfektan, dan perlengkapan kebersihan',
+    'deskripsi':
+        'Pembelian sapu, pel, desinfektan, dan perlengkapan kebersihan',
     'kategori': 'Operasional',
     'jumlah': 950000,
     'tanggal': '2025-12-04',

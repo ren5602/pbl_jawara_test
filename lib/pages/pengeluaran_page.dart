@@ -79,8 +79,8 @@ class _PengeluaranPageState extends State<PengeluaranPage> {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  prefixIcon: const Icon(Icons.money_off,
-                      color: Color(0xFF00B894)),
+                  prefixIcon:
+                      const Icon(Icons.money_off, color: Color(0xFF00B894)),
                 ),
               ),
               const SizedBox(height: 12),
@@ -106,31 +106,28 @@ class _PengeluaranPageState extends State<PengeluaranPage> {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  prefixIcon: const Icon(Icons.description,
-                      color: Color(0xFF00B894)),
+                  prefixIcon:
+                      const Icon(Icons.description, color: Color(0xFF00B894)),
                   alignLabelWithHint: true,
                 ),
               ),
               const SizedBox(height: 12),
               StatefulBuilder(
-                builder: (context, setState) =>
-                    DropdownButtonFormField<String>(
+                builder: (context, setState) => DropdownButtonFormField<String>(
                   value: selectedKategori,
                   decoration: InputDecoration(
                     labelText: 'Kategori',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    prefixIcon: const Icon(Icons.category,
-                        color: Color(0xFF00B894)),
+                    prefixIcon:
+                        const Icon(Icons.category, color: Color(0xFF00B894)),
                   ),
                   items: const [
                     DropdownMenuItem(
-                        value: 'Operasional',
-                        child: Text('Operasional')),
+                        value: 'Operasional', child: Text('Operasional')),
                     DropdownMenuItem(
-                        value: 'Pemeliharaan',
-                        child: Text('Pemeliharaan')),
+                        value: 'Pemeliharaan', child: Text('Pemeliharaan')),
                     DropdownMenuItem(value: 'Sosial', child: Text('Sosial')),
                     DropdownMenuItem(
                         value: 'Lain-lain', child: Text('Lain-lain')),
@@ -233,13 +230,11 @@ class _PengeluaranPageState extends State<PengeluaranPage> {
               _buildDetailRow('Nama Pengeluaran',
                   pengeluaran['nama_pengeluaran']?.toString() ?? '-'),
               const SizedBox(height: 16),
-              _buildDetailRow(
-                  'Jumlah',
+              _buildDetailRow('Jumlah',
                   'Rp ${_formatPrice(pengeluaran['jumlah']?.toString() ?? "0")}'),
               const SizedBox(height: 16),
               _buildDetailRow(
-                  'Kategori',
-                  pengeluaran['kategori']?.toString() ?? '-'),
+                  'Kategori', pengeluaran['kategori']?.toString() ?? '-'),
               const SizedBox(height: 16),
               _buildDetailRow(
                   'Tanggal', pengeluaran['tanggal']?.toString() ?? '-'),
@@ -305,10 +300,9 @@ class _PengeluaranPageState extends State<PengeluaranPage> {
         TextEditingController(text: pengeluaran['nama_pengeluaran']);
     final deskripsiController =
         TextEditingController(text: pengeluaran['deskripsi']);
-    final jumlahController = TextEditingController(
-        text: pengeluaran['jumlah']?.toString() ?? '0');
-    String selectedKategori =
-        pengeluaran['kategori'] ?? 'Operasional';
+    final jumlahController =
+        TextEditingController(text: pengeluaran['jumlah']?.toString() ?? '0');
+    String selectedKategori = pengeluaran['kategori'] ?? 'Operasional';
 
     showModalBottomSheet(
       context: context,
@@ -343,8 +337,8 @@ class _PengeluaranPageState extends State<PengeluaranPage> {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  prefixIcon: const Icon(Icons.money_off,
-                      color: Color(0xFF00B894)),
+                  prefixIcon:
+                      const Icon(Icons.money_off, color: Color(0xFF00B894)),
                 ),
               ),
               const SizedBox(height: 12),
@@ -370,31 +364,28 @@ class _PengeluaranPageState extends State<PengeluaranPage> {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  prefixIcon: const Icon(Icons.description,
-                      color: Color(0xFF00B894)),
+                  prefixIcon:
+                      const Icon(Icons.description, color: Color(0xFF00B894)),
                   alignLabelWithHint: true,
                 ),
               ),
               const SizedBox(height: 12),
               StatefulBuilder(
-                builder: (context, setState) =>
-                    DropdownButtonFormField<String>(
+                builder: (context, setState) => DropdownButtonFormField<String>(
                   value: selectedKategori,
                   decoration: InputDecoration(
                     labelText: 'Kategori',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    prefixIcon: const Icon(Icons.category,
-                        color: Color(0xFF00B894)),
+                    prefixIcon:
+                        const Icon(Icons.category, color: Color(0xFF00B894)),
                   ),
                   items: const [
                     DropdownMenuItem(
-                        value: 'Operasional',
-                        child: Text('Operasional')),
+                        value: 'Operasional', child: Text('Operasional')),
                     DropdownMenuItem(
-                        value: 'Pemeliharaan',
-                        child: Text('Pemeliharaan')),
+                        value: 'Pemeliharaan', child: Text('Pemeliharaan')),
                     DropdownMenuItem(value: 'Sosial', child: Text('Sosial')),
                     DropdownMenuItem(
                         value: 'Lain-lain', child: Text('Lain-lain')),
@@ -466,7 +457,8 @@ class _PengeluaranPageState extends State<PengeluaranPage> {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Konfirmasi'),
-        content: const Text('Apakah Anda yakin ingin menghapus pengeluaran ini?'),
+        content:
+            const Text('Apakah Anda yakin ingin menghapus pengeluaran ini?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
@@ -504,8 +496,7 @@ class _PengeluaranPageState extends State<PengeluaranPage> {
       return _pengeluaranList;
     }
     return _pengeluaranList
-        .where((pengeluaran) =>
-            pengeluaran['status'] == _selectedFilter)
+        .where((pengeluaran) => pengeluaran['status'] == _selectedFilter)
         .toList();
   }
 
@@ -556,9 +547,9 @@ class _PengeluaranPageState extends State<PengeluaranPage> {
     try {
       final number = int.parse(price);
       return number.toString().replaceAllMapped(
-        RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-        (Match m) => '${m[1]}.',
-      );
+            RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+            (Match m) => '${m[1]}.',
+          );
     } catch (e) {
       return price;
     }
@@ -570,8 +561,7 @@ class _PengeluaranPageState extends State<PengeluaranPage> {
       child: Card(
         margin: const EdgeInsets.only(bottom: 12),
         elevation: 2,
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
@@ -752,8 +742,7 @@ class _PengeluaranPageState extends State<PengeluaranPage> {
     );
   }
 
-  Widget _buildIconButton(
-      IconData icon, Color color, VoidCallback onPressed) {
+  Widget _buildIconButton(IconData icon, Color color, VoidCallback onPressed) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: color.withOpacity(0.1),
