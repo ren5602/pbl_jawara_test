@@ -27,6 +27,7 @@ import 'package:pbl_jawara_test/pages/transaksi/histori_transaksi_page.dart';
 import 'package:pbl_jawara_test/pages/warga/warga_self_register_page.dart';
 import 'package:pbl_jawara_test/pages/admin/verification_warga_page.dart';
 import 'package:pbl_jawara_test/pages/aspirasi_page.dart';
+import 'package:pbl_jawara_test/pages/pengeluaran_page.dart';
 import 'package:pbl_jawara_test/utils/user_storage.dart';
 
 import 'screen/pemasukan/menu_pemasukan.dart';
@@ -316,6 +317,13 @@ final appRouter = GoRouter(
       path: '/aspirasi',
       name: 'aspirasi',
       builder: (context, state) => const AspirasiPage(),
+    ),
+
+    // Pengeluaran route
+    GoRoute(
+      path: '/pengeluaran',
+      name: 'pengeluaran',
+      builder: (context, state) => const PengeluaranPage(),
     ),
   ],
 );
