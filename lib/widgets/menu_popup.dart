@@ -239,7 +239,8 @@ class _MenuPopUpContentState extends State<_MenuPopUpContent> {
       {
         'icon': Icons.lightbulb_outline,
         'title': 'Aspirasi',
-        'action': () => showFeatureNotReady(context),
+        'action': () => context.push('/aspirasi'),
+        'color': const Color(0xFF00B894),
       },
       {
         'icon': Icons.history,

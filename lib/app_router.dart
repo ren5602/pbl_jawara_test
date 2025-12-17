@@ -26,6 +26,7 @@ import 'package:pbl_jawara_test/pages/warga/marketplace_warga_page.dart';
 import 'package:pbl_jawara_test/pages/transaksi/histori_transaksi_page.dart';
 import 'package:pbl_jawara_test/pages/warga/warga_self_register_page.dart';
 import 'package:pbl_jawara_test/pages/admin/verification_warga_page.dart';
+import 'package:pbl_jawara_test/pages/aspirasi_page.dart';
 import 'package:pbl_jawara_test/utils/user_storage.dart';
 
 import 'screen/pemasukan/menu_pemasukan.dart';
@@ -155,7 +156,7 @@ final appRouter = GoRouter(
         return DetailTagihan(kategoriData: data);
       },
     ),
-    
+
     // ====== Data Warga & Rumah Hub ======
     GoRoute(
       path: '/data-warga-rumah',
@@ -260,7 +261,7 @@ final appRouter = GoRouter(
         );
       },
     ),
-    
+
     // Marketplace routes
     GoRoute(
       path: '/marketplace',
@@ -288,26 +289,33 @@ final appRouter = GoRouter(
         );
       },
     ),
-    
+
     // Transaksi routes
     GoRoute(
       path: '/histori-transaksi',
       name: 'histori-transaksi',
       builder: (context, state) => const HistoriTransaksiPage(),
     ),
-    
+
     // Kegiatan Warga route
     GoRoute(
       path: '/kegiatan',
       name: 'kegiatan',
       builder: (context, state) => const KegiatanPage(),
     ),
-    
+
     // Broadcast route
     GoRoute(
       path: '/broadcast',
       name: 'broadcast',
       builder: (context, state) => const BroadcastPage(),
+    ),
+
+    // Aspirasi route
+    GoRoute(
+      path: '/aspirasi',
+      name: 'aspirasi',
+      builder: (context, state) => const AspirasiPage(),
     ),
   ],
 );
@@ -328,7 +336,7 @@ class _WargaSelfRegisterWrapper extends StatelessWidget {
             ),
           );
         }
-        
+
         final token = snapshot.data ?? '';
         return WargaSelfRegisterPage(token: token);
       },
@@ -368,7 +376,7 @@ class _KeluargaFormWrapper extends StatelessWidget {
             ),
           );
         }
-        
+
         final token = snapshot.data ?? '';
         return KeluargaFormPage(
           token: token,
@@ -412,7 +420,7 @@ class _RumahAdminFormWrapper extends StatelessWidget {
             ),
           );
         }
-        
+
         final token = snapshot.data ?? '';
         return RumahAdminFormPage(
           token: token,
@@ -466,7 +474,7 @@ class _MarketplaceFormWrapper extends StatelessWidget {
             ),
           );
         }
-        
+
         final token = snapshot.data ?? '';
         return MarketplaceFormPage(
           token: token,

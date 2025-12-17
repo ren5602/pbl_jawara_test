@@ -21,7 +21,8 @@ class _BroadcastPageState extends State<BroadcastPage> {
   Future<void> _checkUserRole() async {
     final role = await UserStorage.getUserRole();
     setState(() {
-      _isAdmin = role == 'admin' || role == 'super_admin' || role == 'adminSistem';
+      _isAdmin =
+          role == 'admin' || role == 'super_admin' || role == 'adminSistem';
     });
   }
 
@@ -32,40 +33,50 @@ class _BroadcastPageState extends State<BroadcastPage> {
       {
         'judul': 'Pengumuman Iuran Bulanan',
         'tanggal': '12 Desember 2025',
-        'deskripsi': 'Pengumuman pembayaran iuran bulanan RT periode Desember 2025. Pembayaran paling lambat tanggal 20 Desember 2025.',
-        'gambar': 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=800&q=80',
+        'deskripsi':
+            'Pengumuman pembayaran iuran bulanan RT periode Desember 2025. Pembayaran paling lambat tanggal 20 Desember 2025.',
+        'gambar':
+            'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=800&q=80',
         'kategori': 'Keuangan',
         'dari': 'Bendahara RT',
       },
       {
         'judul': 'Info Jadwal Ronda',
         'tanggal': '10 Desember 2025',
-        'deskripsi': 'Jadwal ronda malam untuk bulan Desember 2025. Mohon warga untuk hadir sesuai jadwal yang telah ditentukan.',
-        'gambar': 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80',
+        'deskripsi':
+            'Jadwal ronda malam untuk bulan Desember 2025. Mohon warga untuk hadir sesuai jadwal yang telah ditentukan.',
+        'gambar':
+            'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80',
         'kategori': 'Keamanan',
         'dari': 'Ketua RT',
       },
       {
         'judul': 'Pemadaman Listrik Terjadwal',
         'tanggal': '08 Desember 2025',
-        'deskripsi': 'PLN akan melakukan pemadaman listrik terjadwal pada tanggal 15 Desember 2025 pukul 08.00-12.00 WIB untuk pemeliharaan jaringan.',
-        'gambar': 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=800&q=80',
+        'deskripsi':
+            'PLN akan melakukan pemadaman listrik terjadwal pada tanggal 15 Desember 2025 pukul 08.00-12.00 WIB untuk pemeliharaan jaringan.',
+        'gambar':
+            'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=800&q=80',
         'kategori': 'Informasi',
         'dari': 'PLN',
       },
       {
         'judul': 'Himbauan Kebersihan Lingkungan',
         'tanggal': '05 Desember 2025',
-        'deskripsi': 'Himbauan kepada seluruh warga untuk menjaga kebersihan lingkungan dan membuang sampah pada tempatnya. Jadwal pengambilan sampah Senin, Rabu, Jumat.',
-        'gambar': 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=800&q=80',
+        'deskripsi':
+            'Himbauan kepada seluruh warga untuk menjaga kebersihan lingkungan dan membuang sampah pada tempatnya. Jadwal pengambilan sampah Senin, Rabu, Jumat.',
+        'gambar':
+            'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=800&q=80',
         'kategori': 'Lingkungan',
         'dari': 'Sekretaris RT',
       },
       {
         'judul': 'Undangan Rapat RT',
         'tanggal': '01 Desember 2025',
-        'deskripsi': 'Undangan rapat RT untuk membahas program kerja tahun 2026. Rapat akan dilaksanakan pada tanggal 18 Desember 2025 pukul 19.00 WIB.',
-        'gambar': 'https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=800&q=80',
+        'deskripsi':
+            'Undangan rapat RT untuk membahas program kerja tahun 2026. Rapat akan dilaksanakan pada tanggal 18 Desember 2025 pukul 19.00 WIB.',
+        'gambar':
+            'https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=800&q=80',
         'kategori': 'Rapat',
         'dari': 'Ketua RT',
       },
@@ -81,7 +92,7 @@ class _BroadcastPageState extends State<BroadcastPage> {
           'Broadcast',
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: const Color(0xFF6C5CE7),
+        backgroundColor: const Color(0xFF00B894),
         iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: ListView.builder(
@@ -95,7 +106,7 @@ class _BroadcastPageState extends State<BroadcastPage> {
       floatingActionButton: _isAdmin
           ? FloatingActionButton(
               onPressed: () => _showAddBroadcastDialog(context),
-              backgroundColor: const Color(0xFF6C5CE7),
+              backgroundColor: const Color(0xFF00B894),
               child: const Icon(Icons.add, color: Colors.white),
             )
           : null,
@@ -175,14 +186,15 @@ class _BroadcastPageState extends State<BroadcastPage> {
                 Navigator.pop(context);
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text('Broadcast "${judulController.text}" berhasil ditambahkan (dummy)'),
+                    content: Text(
+                        'Broadcast "${judulController.text}" berhasil ditambahkan (dummy)'),
                     backgroundColor: Colors.green,
                   ),
                 );
               }
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF6C5CE7),
+              backgroundColor: const Color(0xFF00B894),
               foregroundColor: Colors.white,
             ),
             child: const Text('Simpan'),
@@ -192,7 +204,8 @@ class _BroadcastPageState extends State<BroadcastPage> {
     );
   }
 
-  Widget _buildBroadcastCard(BuildContext context, Map<String, String> broadcast) {
+  Widget _buildBroadcastCard(
+      BuildContext context, Map<String, String> broadcast) {
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
       elevation: 3,
@@ -206,7 +219,8 @@ class _BroadcastPageState extends State<BroadcastPage> {
           Stack(
             children: [
               ClipRRect(
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(16)),
                 child: Image.network(
                   broadcast['gambar']!,
                   width: double.infinity,
@@ -225,13 +239,14 @@ class _BroadcastPageState extends State<BroadcastPage> {
               Container(
                 height: 200,
                 decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+                  borderRadius:
+                      const BorderRadius.vertical(top: Radius.circular(16)),
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
                       Colors.transparent,
-                      const Color(0xFF6C5CE7).withOpacity(0.8),
+                      const Color(0xFF00B894).withOpacity(0.8),
                     ],
                   ),
                 ),
@@ -245,7 +260,8 @@ class _BroadcastPageState extends State<BroadcastPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 4),
                       decoration: BoxDecoration(
                         color: Colors.white.withOpacity(0.9),
                         borderRadius: BorderRadius.circular(12),
@@ -253,7 +269,7 @@ class _BroadcastPageState extends State<BroadcastPage> {
                       child: Text(
                         broadcast['kategori']!,
                         style: const TextStyle(
-                          color: Color(0xFF6C5CE7),
+                          color: Color(0xFF00B894),
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
                         ),
@@ -281,7 +297,8 @@ class _BroadcastPageState extends State<BroadcastPage> {
               children: [
                 Row(
                   children: [
-                    Icon(Icons.calendar_today, size: 16, color: Colors.grey[600]),
+                    Icon(Icons.calendar_today,
+                        size: 16, color: Colors.grey[600]),
                     const SizedBox(width: 8),
                     Text(
                       broadcast['tanggal']!,
@@ -331,7 +348,7 @@ class _BroadcastPageState extends State<BroadcastPage> {
                     icon: const Icon(Icons.announcement_outlined),
                     label: const Text('Lihat Detail'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF6C5CE7),
+                      backgroundColor: const Color(0xFF00B894),
                       foregroundColor: Colors.white,
                       padding: const EdgeInsets.symmetric(vertical: 12),
                       shape: RoundedRectangleBorder(
